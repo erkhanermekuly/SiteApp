@@ -171,7 +171,17 @@ export default function Main() {
         <div className="container">
           <h2>🚀 Готовы Начать Приключение?</h2>
           <p>Заказ вашу копию уже сегодня и получите бонус комикс-книжку совершенно бесплатно!</p>
-          <button className="cta-button">🛍️ Заказать Сейчас</button>
+          <button 
+            className="cta-button primary"
+            onClick={() => {
+              const phoneNumber = '77758431822';
+              const message = 'Привет! Я хочу заказать карточную игру с бонусом комикс-книжкой.';
+              const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+              window.open(whatsappUrl, '_blank');
+            }}
+          >
+            🛍️ Заказать Сейчас
+          </button>
         </div>
       </section>
 
