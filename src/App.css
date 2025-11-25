@@ -86,6 +86,65 @@ body {
   z-index: 1;
   max-width: 800px;
   animation: slideInUp 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Left decoration */
+.hero-content::before {
+  content: '';
+  position: absolute;
+  left: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,105,180,0.1));
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Right decoration */
+.hero-content::after {
+  content: '';
+  position: absolute;
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(45deg, rgba(255,255,255,0.15), rgba(102,126,234,0.1));
+  border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  animation: float 7s ease-in-out infinite reverse;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-50%) translateX(30px) rotate(180deg); }
+}
+
+/* Animated stars around hero */
+.hero-title::before {
+  content: '✨';
+  margin-right: 20px;
+  display: inline-block;
+  animation: starFloat 3s ease-in-out infinite;
+}
+
+.hero-title::after {
+  content: '✨';
+  margin-left: 20px;
+  display: inline-block;
+  animation: starFloat 3s ease-in-out infinite reverse;
+}
+
+@keyframes starFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-15px) scale(1.2); opacity: 1; }
 }
 
 @keyframes slideInUp {
@@ -100,7 +159,7 @@ body {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 50px;
   font-weight: 700;
   margin-bottom: 20px;
   text-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -277,18 +336,25 @@ body {
 /* ===== GALLERY ===== */
 .product-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
 }
 
 .gallery-item {
   perspective: 1000px;
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
 }
 
 .gallery-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  border-radius: 15px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -297,6 +363,58 @@ body {
 .gallery-image:hover {
   transform: translateY(-10px) scale(1.05);
   box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+}
+
+/* ===== IMAGE MODAL ===== */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 600px;
+  max-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  animation: slideInUp 0.3s ease-out;
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal:hover {
+  background: #f5f5f5;
+  transform: scale(1.1);
 }
 
 /* ===== FEATURES SECTION ===== */
@@ -406,15 +524,15 @@ body {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 17px;
   }
 
   .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 18px;
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .product-section {
@@ -423,7 +541,20 @@ body {
   }
 
   .product-section h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
+  }
+
+  .product-section p {
+    font-size: 1.1rem;
+  }
+
+  .features-list li {
+    font-size: 1.05rem;
+  }
+
+  .product-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .tab-buttons {
@@ -435,7 +566,20 @@ body {
   }
 
   .cta-section h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+  }
+
+  .cta-section p {
+    font-size: 1.2rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .product-gallery {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .features-grid {

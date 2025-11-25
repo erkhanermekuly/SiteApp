@@ -3,9 +3,20 @@ import '../App.css';
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState('game');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <div className="App">
+      {/* Image Modal */}
+      {selectedImage && (
+        <div className="image-modal" onClick={() => setSelectedImage(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal" onClick={() => setSelectedImage(null)}>✕</button>
+            <img src={selectedImage} alt="Full size" className="modal-image" />
+          </div>
+        </div>
+      )}
+
       {/* Header/Hero Section */}
       <header className="hero">
         <div className="hero-content">
@@ -55,13 +66,28 @@ export default function Main() {
               </div>
               <div className="product-gallery">
                 <div className="gallery-item">
-                  <img src="/images/4.jpg" alt="Карточка 1" className="gallery-image" />
+                  <img 
+                    src="/images/4.jpg" 
+                    alt="Карточка 1" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/4.jpg')}
+                  />
                 </div>
                 <div className="gallery-item">
-                  <img src="/images/5.jpg" alt="Карточка 2" className="gallery-image" />
+                  <img 
+                    src="/images/5.jpg" 
+                    alt="Карточка 2" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/5.jpg')}
+                  />
                 </div>
                 <div className="gallery-item">
-                  <img src="/images/6.jpg" alt="Карточка 3" className="gallery-image" />
+                  <img 
+                    src="/images/6.jpg" 
+                    alt="Карточка 3" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/6.jpg')}
+                  />
                 </div>
               </div>
             </div>
@@ -82,13 +108,28 @@ export default function Main() {
               </div>
               <div className="product-gallery">
                 <div className="gallery-item">
-                  <img src="/images/1.jpg" alt="Комикс 1" className="gallery-image" />
+                  <img 
+                    src="/images/1.jpg" 
+                    alt="Комикс 1" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/1.jpg')}
+                  />
                 </div>
                 <div className="gallery-item">
-                  <img src="/images/2.jpg" alt="Комикс 2" className="gallery-image" />
+                  <img 
+                    src="/images/2.jpg" 
+                    alt="Комикс 2" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/2.jpg')}
+                  />
                 </div>
                 <div className="gallery-item">
-                  <img src="/images/3.jpg" alt="Комикс 3" className="gallery-image" />
+                  <img 
+                    src="/images/3.jpg" 
+                    alt="Комикс 3" 
+                    className="gallery-image" 
+                    onClick={() => setSelectedImage('/images/3.jpg')}
+                  />
                 </div>
               </div>
             </div>
@@ -130,7 +171,7 @@ export default function Main() {
         <div className="container">
           <h2>🚀 Готовы Начать Приключение?</h2>
           <p>Заказ вашу копию уже сегодня и получите бонус комикс-книжку совершенно бесплатно!</p>
-          <button className="cta-button primary">🛍️ Заказать Сейчас</button>
+          <button className="cta-button">🛍️ Заказать Сейчас</button>
         </div>
       </section>
 
