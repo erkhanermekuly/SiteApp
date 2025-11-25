@@ -177,7 +177,9 @@ export default function Main() {
               const phoneNumber = '77758431822';
               const message = 'Привет! Я хочу заказать карточную игру с бонусом комикс-книжкой.';
               const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-              window.open(whatsappUrl, '_blank');
+              if (whatsappUrl) {
+                window.open(whatsappUrl, '_blank');
+              }
             }}
           >
             🛍️ Заказать Сейчас
