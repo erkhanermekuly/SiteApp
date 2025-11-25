@@ -67,26 +67,26 @@ export default function Main() {
               <div className="product-gallery">
                 <div className="gallery-item">
                   <img 
-                    src="/images/4.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/4.jpg`} 
                     alt="Карточка 1" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/4.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/4.jpg`)}
                   />
                 </div>
                 <div className="gallery-item">
                   <img 
-                    src="/images/5.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/5.jpg`} 
                     alt="Карточка 2" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/5.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/5.jpg`)}
                   />
                 </div>
                 <div className="gallery-item">
                   <img 
-                    src="/images/6.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/6.jpg`} 
                     alt="Карточка 3" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/6.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/6.jpg`)}
                   />
                 </div>
               </div>
@@ -109,26 +109,26 @@ export default function Main() {
               <div className="product-gallery">
                 <div className="gallery-item">
                   <img 
-                    src="/images/1.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/1.jpg`} 
                     alt="Комикс 1" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/1.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/1.jpg`)}
                   />
                 </div>
                 <div className="gallery-item">
                   <img 
-                    src="/images/2.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/2.jpg`} 
                     alt="Комикс 2" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/2.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/2.jpg`)}
                   />
                 </div>
                 <div className="gallery-item">
                   <img 
-                    src="/images/3.jpg" 
+                    src={`${process.env.PUBLIC_URL}/images/3.jpg`} 
                     alt="Комикс 3" 
                     className="gallery-image" 
-                    onClick={() => setSelectedImage('/images/3.jpg')}
+                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/3.jpg`)}
                   />
                 </div>
               </div>
