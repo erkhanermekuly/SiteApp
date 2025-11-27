@@ -199,7 +199,7 @@ export default function Main() {
           <button 
             className="cta-button primary"
             onClick={() => {
-              const phoneNumber = '+77758431822';
+              const phoneNumber = '+77785608275';
               const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(t.whatsappMessage)}`;
               if (whatsappUrl) {
                 window.open(whatsappUrl, '_blank');
