@@ -1,12 +1,38 @@
 import { useState } from 'react';
 import '../App.css';
+import translations from '../translations';
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState('game');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [language, setLanguage] = useState('ru');
+
+  const t = translations[language];
 
   return (
     <div className="App">
+      {/* Language Switcher */}
+      <div className="language-switcher">
+        <button 
+          className={`lang-btn ${language === 'kk' ? 'active' : ''}`} 
+          onClick={() => setLanguage('kk')}
+        >
+          ҚАЗ
+        </button>
+        <button 
+          className={`lang-btn ${language === 'ru' ? 'active' : ''}`} 
+          onClick={() => setLanguage('ru')}
+        >
+          РУС
+        </button>
+        <button 
+          className={`lang-btn ${language === 'en' ? 'active' : ''}`} 
+          onClick={() => setLanguage('en')}
+        >
+          ENG
+        </button>
+      </div>
+
       {/* Image Modal */}
       {selectedImage && (
         <div className="image-modal" onClick={() => setSelectedImage(null)}>
@@ -20,13 +46,13 @@ export default function Main() {
       {/* Header/Hero Section */}
       <header className="hero">
         <div className="hero-content">
-          <h1 className="hero-title">✨ Настольная игра ✨</h1>
-          <p className="hero-subtitle">Погрузитесь в мир увлекательной игры с красивым дизайном и захватывающей историей</p>
+          <h1 className="hero-title">{t.heroTitle}</h1>
+          <p className="hero-subtitle">{t.heroSubtitle}</p>
           <button 
             className="cta-button"
             onClick={() => window.scrollTo({ top: document.querySelector('.products').offsetTop, behavior: 'smooth' })}
           >
-            🚀 Узнать Больше
+            🚀 {t.discoverMore}
           </button>
         </div>
       </header>
@@ -34,20 +60,20 @@ export default function Main() {
       {/* Products Section */}
       <section className="products">
         <div className="container">
-          <h2 className="section-title">Что Вы Получите</h2>
+          <h2 className="section-title">{t.whatYouGet}</h2>
           
           <div className="tab-buttons">
             <button 
               className={`tab-btn ${activeTab === 'game' ? 'active' : ''}`}
               onClick={() => setActiveTab('game')}
             >
-              🎮 Основной Продукт
+              🎮 {t.mainProduct}
             </button>
             <button 
               className={`tab-btn ${activeTab === 'bonus' ? 'active' : ''}`}
               onClick={() => setActiveTab('bonus')}
             >
-              📚 Бонус Комикс
+              📚 {t.bonusComic}
             </button>
           </div>
 
@@ -55,40 +81,25 @@ export default function Main() {
           {activeTab === 'game' && (
             <div className="product-section game-section">
               <div className="product-text">
-                <h3>🎮 Настольная игра</h3>
-                <p>Это наш основной продукт! Красивая настольная игра с уникальным дизайном. Каждая карта - это произведение искусства, созданное профессиональными художниками.</p>
+                <h3>🎮 {t.gameTitle}</h3>
+                <p>{t.gameDesc}</p>
                 <ul className="features-list">
-                  <li>🎨 Увлекательное путешествие по Казахстану</li>
-                  <li>✨ Уникальный дизайн каждой карты</li>
-                  <li>🎯 Познавательный и стратегический геймплей</li>
-                  <li>👥 Идеально для игры с друзьями и семьей</li>
+                  {t.gameFeatures.map((feature, index) => (
+                    <li key={index}>✨ {feature.title}</li>
+                  ))}
                 </ul>
               </div>
               <div className="product-gallery">
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/4.jpg`} 
-                    alt="Карточка 1" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/4.jpg`)}
-                  />
-                </div>
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/5.jpg`} 
-                    alt="Карточка 2" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/5.jpg`)}
-                  />
-                </div>
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/6.jpg`} 
-                    alt="Карточка 3" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/6.jpg`)}
-                  />
-                </div>
+                {[4, 5, 6].map((num) => (
+                  <div key={num} className="gallery-item">
+                    <img 
+                      src={`${process.env.PUBLIC_URL}/images/${num}.jpg`} 
+                      alt={`Card ${num}`} 
+                      className="gallery-image" 
+                      onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/${num}.jpg`)}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -97,70 +108,84 @@ export default function Main() {
           {activeTab === 'bonus' && (
             <div className="product-section bonus-section">
               <div className="product-text">
-                <h3>📚 Бонус: Комикс-Книжка</h3>
-                <p>Идет бонусом к основному продукту! Красивая книжка в формате комикса с увлекательной историей и яркими иллюстрациями. Отличное дополнение к игре!</p>
+                <h3>📚 {t.comicTitle}</h3>
+                <p>{t.comicDesc}</p>
                 <ul className="features-list">
-                  <li>📖 Увлекательная история с неожиданными поворотами</li>
-                  <li>🎨 Красивые и детальные иллюстрации</li>
-                  <li>🎭 Уникальный художественный стиль</li>
-                  <li>🎁 Идеальный бонус к основному продукту</li>
+                  {t.comicFeatures.map((feature, index) => (
+                    <li key={index}>✨ {feature.title}</li>
+                  ))}
                 </ul>
               </div>
               <div className="product-gallery">
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/1.jpg`} 
-                    alt="Комикс 1" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/1.jpg`)}
-                  />
-                </div>
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/2.jpg`} 
-                    alt="Комикс 2" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/2.jpg`)}
-                  />
-                </div>
-                <div className="gallery-item">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/3.jpg`} 
-                    alt="Комикс 3" 
-                    className="gallery-image" 
-                    onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/3.jpg`)}
-                  />
-                </div>
+                {[1, 2, 3].map((num) => (
+                  <div key={num} className="gallery-item">
+                    <img 
+                      src={`${process.env.PUBLIC_URL}/images/${num}.jpg`} 
+                      alt={`Comic ${num}`} 
+                      className="gallery-image" 
+                      onClick={() => setSelectedImage(`${process.env.PUBLIC_URL}/images/${num}.jpg`)}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           )}
         </div>
       </section>
 
+      {/* Game Rules Section */}
+      <section className="game-rules">
+        <div className="container">
+          <h2 className="section-title">{t.gameRulesTitle}</h2>
+          <div className="rules-grid">
+            <div className="rule-card">
+              <div className="rule-number">1</div>
+              <h3>{t.rule1Title}</h3>
+              <p>{t.rule1Desc}</p>
+            </div>
+            <div className="rule-card">
+              <div className="rule-number">2</div>
+              <h3>{t.rule2Title}</h3>
+              <p>{t.rule2Desc}</p>
+            </div>
+            <div className="rule-card">
+              <div className="rule-number">3</div>
+              <h3>{t.rule3Title}</h3>
+              <p>{t.rule3Desc}</p>
+            </div>
+            <div className="rule-card">
+              <div className="rule-number">4</div>
+              <h3>{t.rule4Title}</h3>
+              <p>{t.rule4Desc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="features">
         <div className="container">
-          <h2 className="section-title">Почему Выбрать Нас</h2>
+          <h2 className="section-title">{t.whyChooseUs}</h2>
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">🎨</div>
-              <h3>Умная Игра</h3>
-              <p>Каждый элемент продумана до мелочей с учётом современных тенденций</p>
+              <h3>{t.designTitle}</h3>
+              <p>{t.designDesc}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">⚡</div>
-              <h3>Премиум Качество</h3>
-              <p>Высочайший уровень производства и материалов</p>
+              <h3>{t.qualityTitle}</h3>
+              <p>{t.qualityDesc}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🎯</div>
-              <h3>Веселье и Развлечение</h3>
-              <p>Отличное времяпрепровождение для всей семьи</p>
+              <h3>{t.funTitle}</h3>
+              <p>{t.funDesc}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🎁</div>
-              <h3>Щедрые Бонусы</h3>
-              <p>Получите комикс-книжку в подарок к основному продукту</p>
+              <h3>{t.bonusTitle}</h3>
+              <p>{t.bonusDesc}</p>
             </div>
           </div>
         </div>
@@ -169,27 +194,26 @@ export default function Main() {
       {/* CTA Section */}
       <section className="cta-section">
         <div className="container">
-          <h2>🚀 Готовы Начать Приключение?</h2>
-          <p>Закажите сегодня и получите бонус комикс-книжку совершенно бесплатно!</p>
+          <h2>{t.readyTitle}</h2>
+          <p>{t.readyDesc}</p>
           <button 
             className="cta-button primary"
             onClick={() => {
               const phoneNumber = '+77758431822';
-              const message = 'Привет! Я хочу заказать настольную игру с бонусом комикс-книжкой.';
-              const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+              const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(t.whatsappMessage)}`;
               if (whatsappUrl) {
                 window.open(whatsappUrl, '_blank');
-              }
+               }
             }}
           >
-            🛍️ Заказать Сейчас
+            {t.orderButton}
           </button>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2025 Настольная Игра. Все права защищены.</p>
+        <p>{t.footerText}</p>
       </footer>
     </div>
   );
