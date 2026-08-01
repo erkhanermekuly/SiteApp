@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the URKER header', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /добро пожаловать в urker/i })).toBeTruthy();
+  expect(screen.getByAltText(/логотип iq center urker/i)).toBeTruthy();
 });

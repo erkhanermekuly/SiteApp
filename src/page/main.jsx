@@ -46,14 +46,27 @@ export default function Main() {
       {/* Header/Hero Section */}
       <header className="hero">
         <div className="hero-content">
-          <h1 className="hero-title">{t.heroTitle}</h1>
-          <p className="hero-subtitle">{t.heroSubtitle}</p>
-          <button 
-            className="cta-button"
-            onClick={() => window.scrollTo({ top: document.querySelector('.products').offsetTop, behavior: 'smooth' })}
-          >
-            🚀 {t.discoverMore}
-          </button>
+          <div className="hero-brand">
+            <div className="logo-container">
+              <img
+                src={`${process.env.PUBLIC_URL}/images/logo.png`}
+                alt="Логотип IQ Center URKER"
+                className="hero-logo"
+              />
+            </div>
+            <div className="hero-copy">
+              <p className="organization-kicker">{t.organizationKicker}</p>
+              <h1 className="hero-title">{t.heroTitle}</h1>
+              <p className="hero-subtitle">{t.heroSubtitle}</p>
+              <p className="organization-description">{t.organizationDescription}</p>
+              <button
+                className="cta-button"
+                onClick={() => window.scrollTo({ top: document.querySelector('.products').offsetTop, behavior: 'smooth' })}
+              >
+                🚀 {t.discoverMore}
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 

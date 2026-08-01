@@ -1,8 +1,10 @@
 const translations = {
   ru: {
     // Hero Section
-    heroTitle: '✨ Настольная Игра ✨',
-    heroSubtitle: 'Погрузитесь в мир увлекательной игры с красивым дизайном и захватывающей историей',
+    organizationKicker: 'Об организации',
+    heroTitle: 'Добро пожаловать в URKER',
+    heroSubtitle: 'IQ Center URKER — пространство для развития интеллекта и творчества',
+    organizationDescription: 'Мы создаём образовательные игры и проекты, которые помогают детям мыслить смело, учиться с интересом и раскрывать свои способности.',
     heroButton: '🚀 Узнать Больше',
     discoverMore: 'Узнать Больше',
 
@@ -65,8 +67,10 @@ const translations = {
   },
   kk: {
     // Hero Section
-    heroTitle: '✨ Үстел Ойыны ✨',
-    heroSubtitle: 'Керемет дизайн және қызықты ойын әлеміне енгізіңіз',
+    organizationKicker: 'Ұйым туралы',
+    heroTitle: 'Үркер әлеміне қош келдіңіз',
+    heroSubtitle: 'IQ Center URKER — зияткерлік пен шығармашылықты дамыту орталығы',
+    organizationDescription: 'Біз балалардың батыл ойлауына, қызығушылықпен білім алуына және қабілетін ашуына көмектесетін танымдық ойындар мен жобалар жасаймыз.',
     heroButton: '🚀 Толығырақ Білу',
     discoverMore: 'Толығырақ Білу',
 
@@ -129,8 +133,10 @@ const translations = {
   },
   en: {
     // Hero Section
-    heroTitle: '✨ Board Game ✨',
-    heroSubtitle: 'Immerse yourself in an exciting game with beautiful design and captivating story',
+    organizationKicker: 'About the organization',
+    heroTitle: 'Welcome to URKER',
+    heroSubtitle: 'IQ Center URKER — a space for intellectual and creative growth',
+    organizationDescription: 'We create educational games and projects that help children think boldly, enjoy learning, and discover their potential.',
     heroButton: '🚀 Learn More',
     discoverMore: 'Learn More',
 
@@ -187,9 +193,6 @@ const translations = {
 
     // Footer
     footerText: '2025 Board Game. All rights reserved.',
-
-    // Language selector
-    language: 'ENG',
 
     // Language selector
     language: 'ENG',
