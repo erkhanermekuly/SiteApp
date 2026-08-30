@@ -2,10 +2,42 @@ import { useEffect, useState } from 'react';
 import '../App.css';
 
 const games = [
-  { name: '«URKER GO» мен Үркермен елтану', type: 'Зияткерлік үстел ойыны · Интеллектуальная настольная игра', image: '/images/go.png', path: '/games/urker-go', description: '«Үркермен елтану» картасымен Қазақстанды зерттеуге арналған оқу-әдістемелік кешен. Учебно-методический комплект для изучения Казахстана с картой «Үркермен елтану».', ready: true },
-  { name: 'URKER MEMO', type: 'Есте сақтау ойыны · Игра на память', image: '/images/memo2.jpg', path: '/games/urker-memo', description: 'Қазақстан мұрасы бейнеленген карточкалар есте сақтау мен зейінді дамытады. Карточки с объектами наследия Казахстана развивают память и внимание.', ready: true },
-  { name: 'Қауіпсіз ғаламтор', type: 'Цифрлық қауіпсіздік · Цифровая безопасность', image: '/images/qg2.jpeg', path: '/games/safe-internet', description: 'Интернетті қауіпсіз пайдалану дағдыларын қалыптастыратын интерактивті ойын. Интерактивная игра о правилах безопасного поведения в интернете.', ready: true },
-  { name: 'Үркер дәптері', type: 'Оқу құралы · Учебное пособие', image: '/images/Дәптер.png', path: '/games/urker-workbook', description: 'Креативті ойлау мәдениетін дамытуға арналған тапсырмалар жүйесі. Система заданий для развития культуры креативного мышления.', ready: true },
+  {
+    name: '«URKER GO» мен Үркермен елтану',
+    type: 'Зияткерлік үстел ойыны · Интеллектуальная настольная игра',
+    image: '/images/go.png',
+    path: '/games/urker-go',
+    description: '«Үркермен елтану» картасымен Қазақстанды зерттеуге арналған оқу-әдістемелік кешен. Учебно-методический комплект для изучения Казахстана с картой «Үркермен елтану».',
+    price: '18 000 ₸',
+    ready: true
+  },
+  {
+    name: 'URKER MEMO',
+    type: 'Есте сақтау ойыны · Игра на память',
+    image: '/images/memo2.jpg',
+    path: '/games/urker-memo',
+    description: 'Қазақстан мұрасы бейнеленген карточкалар есте сақтау мен зейінді дамытады. Карточки с объектами наследия Казахстана развивают память и внимание.',
+    price: '3 800 ₸',
+    ready: true
+  },
+  {
+    name: 'Қауіпсіз ғаламтор',
+    type: 'Цифрлық қауіпсіздік · Цифровая безопасность',
+    image: '/images/qg2.jpeg',
+    path: '/games/safe-internet',
+    description: 'Интернетті қауіпсіз пайдалану дағдыларын қалыптастыратын интерактивті ойын. Интерактивная игра о правилах безопасного поведения в интернете.',
+    price: '2 500 ₸',
+    ready: true
+  },
+  {
+    name: 'Үркер дәптері',
+    type: 'Оқу құралы · Учебное пособие',
+    image: '/images/Дәптер.png',
+    path: '/games/urker-workbook',
+    description: 'Креативті ойлау мәдениетін дамытуға арналған тапсырмалар жүйесі. Система заданий для развития культуры креативного мышления.',
+    price: '1 500 ₸',
+    ready: true
+  },
 ];
 
 const Icon = ({ children }) => <span className="icon" aria-hidden="true">{children}</span>;
@@ -45,8 +77,105 @@ function Footer({ navigate }) {
 }
 
 function GameCard({ game, navigate }) {
-  if (!game.ready) return <article className="game-card coming-card"><div className="coming-visual"><span>{game.number}</span><small>URKER BAULU MEKTEBI</small></div><div className="card-body"><span className="soon-badge">В разработке</span><h3>{game.name}</h3><p>{game.type}</p></div></article>;
-  return <article className="game-card featured-card" onMouseMove={tiltMove} onMouseLeave={tiltLeave} onClick={() => navigate(game.path)}><div className="depth-light"></div><div className={`card-image${game.image.includes('Дәптер') ? ' card-image-contain' : ''}${game.path === '/games/urker-workbook' ? ' card-image-double' : ''}`}>{game.path === '/games/urker-workbook' ? <div className="card-image-pair"><img src={game.image} alt={`Настольная игра ${game.name}`} /><img src="/images/дәптерр.png" alt={`Дополнительное изображение ${game.name}`} /></div> : <img src={game.image} alt={`Настольная игра ${game.name}`} />}<span className="available-badge">Доступна</span></div><div className="card-body">{game.path !== '/games/urker-workbook' && <p className="eyebrow">{game.type}</p>}<h3>{game.name}</h3><p>{game.description}</p><button>Подробнее <span>→</span></button></div></article>;
+  if (!game.ready) {
+    return (
+        <article className="game-card coming-card">
+          <div className="coming-visual">
+            <span>{game.number}</span>
+            <small>URKER BAULU MEKTEBI</small>
+          </div>
+
+          <div className="card-body">
+            <span className="soon-badge">В разработке</span>
+            <h3>{game.name}</h3>
+            <p>{game.type}</p>
+          </div>
+        </article>
+    );
+  }
+
+  const whatsappNumber = '87765230644';
+
+  const whatsappMessage = encodeURIComponent(
+      `Здравствуйте! Хочу приобрести игру «${game.name}».`
+  );
+
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  return (
+      <article
+          className="game-card featured-card"
+          onMouseMove={tiltMove}
+          onMouseLeave={tiltLeave}
+          onClick={() => navigate(game.path)}
+      >
+        <div className="depth-light"></div>
+
+        <div
+            className={`card-image${
+                game.image.includes('Дәптер') ? ' card-image-contain' : ''
+            }${
+                game.path === '/games/urker-workbook'
+                    ? ' card-image-double'
+                    : ''
+            }`}
+        >
+          {game.path === '/games/urker-workbook' ? (
+              <div className="card-image-pair">
+                <img
+                    src={game.image}
+                    alt={`Настольная игра ${game.name}`}
+                />
+                <img
+                    src="/images/дәптерр.png"
+                    alt={`Дополнительное изображение ${game.name}`}
+                />
+              </div>
+          ) : (
+              <img
+                  src={game.image}
+                  alt={`Настольная игра ${game.name}`}
+              />
+          )}
+
+          <span className="available-badge">Доступна</span>
+        </div>
+
+        <div className="card-body">
+          {game.path !== '/games/urker-workbook' && (
+              <p className="eyebrow">{game.type}</p>
+          )}
+
+          <h3>{game.name}</h3>
+
+          <p>{game.description}</p>
+
+          <div className="game-card-footer">
+            <span className="game-price">{game.price}</span>
+
+            <button
+                className="whatsapp-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(whatsappLink, '_blank');
+                }}
+            >
+              WhatsApp
+            </button>
+          </div>
+
+          <button
+              className="details-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(game.path);
+              }}
+          >
+            Подробнее <span>→</span>
+          </button>
+        </div>
+      </article>
+  );
 }
 
 function GameSlider({ navigate }) {
@@ -85,35 +214,722 @@ function Games({ navigate }) { return <><Header navigate={navigate} /><main clas
 
 function Memo({ navigate }) {
   const [modal, setModal] = useState(false);
-  useEffect(() => { document.title = 'Urker Memo | Urker Baulu Mektebi'; }, []);
-  return <><Header navigate={navigate} /><main className="memo-page"><section className="product-hero"><div className="product-layout">
-    <div className="product-photo"><img src="/images/memo2.jpg" alt="URKER MEMO ойыны" onClick={() => setModal(true)} /><button onClick={() => setModal(true)}><span className="lang-kk">⌕ Суретті үлкейту</span><span className="lang-ru">⌕ Увеличить изображение</span></button></div>
-    <div className="product-info"><p className="overline gold"><span className="lang-kk">ЕСТЕ САҚТАУ ОЙЫНЫ</span><span className="lang-ru">ИГРА НА ПАМЯТЬ</span></p><h1>URKER MEMO</h1><p className="description bilingual-copy"><span>«URKER MEMO» ойыны балалардың есте сақтау қабілетін, зейінін, байқағыштығын және танымдық белсенділігін дамытуға бағытталған. Ойын жиынтығы Қазақстанның тарихи, мәдени және табиғи мұра нысандары бейнеленген, классикалық Memory (Memo) ойыны қағидаты бойынша әзірленген карточкалардан тұрады.</span><span>Игра «URKER MEMO» направлена на развитие памяти, внимания, наблюдательности и познавательной активности детей. Игровой комплект состоит из карточек, созданных по принципу классической игры Memory (Memo), с изображениями объектов исторического, культурного и природного наследия Казахстана.</span></p><p className="description memo-gameplay bilingual-copy"><span>Ойыншылар кезекпен карточкаларды ашып, бірдей суреттерді табады. Қарапайым ойын ережелері ойынды бірден бастауға мүмкіндік береді, ал Қазақстанның тарихи, мәдени және табиғи мұрасына қатысты таныс бейнелер әрбір ойынды танымға толы қызықты тәжірибеге айналдырады.</span><span>Игроки по очереди открывают карточки и ищут одинаковые изображения. Простые правила позволяют начать сразу, а знакомые культурные образы делают каждую партию маленьким открытием.</span></p><div className="spec-row"><div><Icon>♟</Icon><b>1–4</b><span><span className="lang-kk">ойыншы</span><span className="lang-ru">игрока</span></span></div><div><Icon>◷</Icon><b>10–15</b><span><span className="lang-kk">минут</span><span className="lang-ru">минут</span></span></div><div><Icon>☆</Icon><b>3+</b><span><span className="lang-kk">жас</span><span className="lang-ru">возраст</span></span></div></div><a className="primary-btn inline" href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20узнать%20подробнее%20об%20игре%20Urker%20Memo" target="_blank" rel="noreferrer"><span className="lang-kk">Бар-жоғын білу →</span><span className="lang-ru">Узнать о наличии →</span></a></div>
-  </div></section>
-  <section className="development"><div><p className="overline gold"><span className="lang-kk">ОЙЫННЫҢ ПАЙДАСЫ</span><span className="lang-ru">ПОЛЬЗА ИГРЫ</span></p><h2><span className="lang-kk">URKER MEMO нені дамытады</span><span className="lang-ru">Что развивает URKER MEMO</span></h2></div><div className="benefit-grid"><article><b>01</b><h3><span className="lang-kk">Есте сақтау қабілеті</span><span className="lang-ru">Память</span></h3><p><span className="lang-kk">Бала карточкалардың орналасуын есте сақтап, ақпаратты есте сақтау және оны қажет кезінде қайта жаңғырту дағдыларын дамытады.</span><span className="lang-ru">Ребёнок запоминает расположение карточек и развивает навыки сохранения информации и её воспроизведения в нужный момент.</span></p></article><article><b>02</b><h3><span className="lang-kk">Зейін</span><span className="lang-ru">Внимание</span></h3><p><span className="lang-kk">Жұп карточкаларды іздеу арқылы баланың зейіні шоғырланып, назарын тұрақты ұстай білуі мен байқағыштық қабілеті дамиды.</span><span className="lang-ru">Поиск пар помогает ребёнку концентрироваться, устойчиво удерживать внимание и развивать наблюдательность.</span></p></article><article><b>03</b><h3><span className="lang-kk">Логикалық ойлау</span><span className="lang-ru">Логическое мышление</span></h3><p><span className="lang-kk">Әрбір ойын қадамы салыстыруға, талдауға және дұрыс шешім қабылдау дағдыларын дамытуға ықпал етеді.</span><span className="lang-ru">Каждый игровой ход развивает навыки сравнения, анализа и принятия правильных решений.</span></p></article><article><b>04</b><h3><span className="lang-kk">Таным көкжиегі</span><span className="lang-ru">Познавательный кругозор</span></h3><p><span className="lang-kk">Карточкалардағы иллюстрациялар балаларды қазақ халқының мәдениетімен, ұлттық құндылықтарымен және танымдық нысандарымен таныстырып, дүниетанымын кеңейтеді.</span><span className="lang-ru">Иллюстрации на карточках знакомят детей с культурой казахского народа, национальными ценностями и познавательными объектами, расширяя их кругозор.</span></p></article></div></section>
-  <section className="rules-section"><div className="rules-copy"><p className="overline gold"><span className="lang-kk">ҚАЛАЙ ОЙНАУ КЕРЕК</span><span className="lang-ru">КАК ИГРАТЬ</span></p><h2><span className="lang-kk">Ережелері</span><span className="lang-ru">Правила</span></h2><ol><li><span>1</span><p><b><span className="lang-kk">Карточкаларды дайындаңыз</span><span className="lang-ru">Подготовьте карточки</span></b><span className="lang-kk">48 карточканы араластырып, суреті төмен қараған күйде үстелге орналастырыңыз.</span><span className="lang-ru">Перемешайте 48 карточек и разложите их на столе изображением вниз.</span></p></li><li><span>2</span><p><b><span className="lang-kk">Жұп карточкаларды ашыңыз</span><span className="lang-ru">Открывайте пары</span></b><span className="lang-kk">Әр ойыншы кезекпен екі карточканы ашады.</span><span className="lang-ru">Каждый игрок по очереди открывает две карточки.</span></p></li><li><span>3</span><p><b><span className="lang-kk">Сәйкес жұптарды жинаңыз</span><span className="lang-ru">Собирайте совпадающие пары</span></b><span className="lang-kk">Егер екі карточкадағы сурет бірдей болса, ойыншы оларды өзіне алады. Егер әртүрлі болса, карточкаларды қайтадан аударып, орнына қояды.</span><span className="lang-ru">Если изображения на двух карточках совпадают, игрок забирает их себе. Если они разные, карточки переворачивают обратно и возвращают на место.</span></p></li><li><span>4</span><p><b><span className="lang-kk">Жеңімпазды анықтаңыз</span><span className="lang-ru">Определите победителя</span></b><span className="lang-kk">Ең көп жұп карточка жинаған ойыншы жеңімпаз атанады.</span><span className="lang-ru">Побеждает игрок, собравший больше всего пар карточек.</span></p></li></ol></div><div className="rules-photo"><img src="/images/memo.jpg" alt="URKER MEMO карточкалары мен қаптамасы" /></div></section>
-  <section className="inside"><p className="overline gold"><span className="lang-kk">ЖИЫНТЫҚ ҚҰРАМЫ</span><span className="lang-ru">КОМПЛЕКТАЦИЯ</span></p><h2><span className="lang-kk">Қораптың ішінде</span><span className="lang-ru">Внутри коробки</span></h2><div><strong>48</strong><span><span className="lang-kk">карточка</span><span className="lang-ru">карточек</span></span><i></i><strong>24</strong><span><span className="lang-kk">жұп карточка</span><span className="lang-ru">пары</span></span><i></i><strong>1</strong><span><span className="lang-kk">нұсқаулық</span><span className="lang-ru">инструкция</span></span></div></section>
-  <section className="product-cta"><p className="overline"><span className="lang-kk">ҮЙГЕ ЖӘНЕ БІЛІМ БЕРУ ОРТАЛЫҚТАРЫНА</span><span className="lang-ru">ДЛЯ ДОМА И ОБРАЗОВАТЕЛЬНЫХ ЦЕНТРОВ</span></p><h2><span className="lang-kk">Қазақстанды балалармен<br/>бірге таныңыз</span><span className="lang-ru">Открывайте Казахстан<br/>вместе с детьми</span></h2><a href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20Urker%20Memo" target="_blank" rel="noreferrer"><span className="lang-kk">Бізбен байланысыңыз →</span><span className="lang-ru">Связаться с нами →</span></a></section></main>
-  {modal && <div className="modal" onClick={() => setModal(false)}><button aria-label="Закрыть">×</button><img src="/images/memo2.jpg" alt="Urker Memo крупным планом" /></div>}<Footer navigate={navigate} /></>;
+
+  useEffect(() => {
+    document.title = 'Urker Memo | Urker Baulu Mektebi';
+  }, []);
+
+  const whatsappLink =
+      'https://wa.me/87765230644?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
+
+  return (
+      <>
+        <Header navigate={navigate} />
+
+        <main className="memo-page">
+          <section className="product-hero">
+            <div className="product-layout">
+              <div className="product-photo">
+                <img
+                    src="/images/memo2.jpg"
+                    alt="URKER MEMO ойыны"
+                    onClick={() => setModal(true)}
+                />
+                <button onClick={() => setModal(true)}>
+                  <span className="lang-kk">⌕ Суретті үлкейту</span>
+                  <span className="lang-ru">⌕ Увеличить изображение</span>
+                </button>
+              </div>
+
+              <div className="product-info">
+                <p className="overline gold">
+                  <span className="lang-kk">ЕСТЕ САҚТАУ ОЙЫНЫ</span>
+                  <span className="lang-ru">ИГРА НА ПАМЯТЬ</span>
+                </p>
+
+                <h1>URKER MEMO</h1>
+
+                <p className="description bilingual-copy">
+                <span>
+                  «URKER MEMO» ойыны балалардың есте сақтау қабілетін,
+                  зейінін, байқағыштығын және танымдық белсенділігін
+                  дамытуға бағытталған. Ойын жиынтығы Қазақстанның тарихи,
+                  мәдени және табиғи мұра нысандары бейнеленген,
+                  классикалық Memory (Memo) ойыны қағидаты бойынша
+                  әзірленген карточкалардан тұрады.
+                </span>
+                  <span>
+                  Игра «URKER MEMO» направлена на развитие памяти,
+                  внимания, наблюдательности и познавательной активности
+                  детей. Игровой комплект состоит из карточек, созданных
+                  по принципу классической игры Memory (Memo), с
+                  изображениями объектов исторического, культурного и
+                  природного наследия Казахстана.
+                </span>
+                </p>
+
+                <p className="description memo-gameplay bilingual-copy">
+                <span>
+                  Ойыншылар кезекпен карточкаларды ашып, бірдей суреттерді
+                  табады. Қарапайым ойын ережелері ойынды бірден бастауға
+                  мүмкіндік береді, ал Қазақстанның тарихи, мәдени және
+                  табиғи мұрасына қатысты таныс бейнелер әрбір ойынды
+                  танымға толы қызықты тәжірибеге айналдырады.
+                </span>
+                  <span>
+                  Игроки по очереди открывают карточки и ищут одинаковые
+                  изображения. Простые правила позволяют начать сразу,
+                  а знакомые культурные образы делают каждую партию
+                  маленьким открытием.
+                </span>
+                </p>
+
+                {/* Цена + WhatsApp сверху, между линиями */}
+                <div className="product-purchase">
+                  <div className="product-price">3 800 ₸</div>
+                  <a
+                      className="whatsapp-product-button"
+                      href={whatsappLink}
+                      target="_blank"
+                      rel="noreferrer"
+                  >
+                    <span>WhatsApp</span>
+                    <span>Заказать →</span>
+                  </a>
+                </div>
+
+                {/* Характеристики под ценой */}
+                <div className="spec-row">
+                  <div>
+                    <Icon>♟</Icon>
+                    <b>1–4</b>
+                    <span>
+                    <span className="lang-kk">ойыншы</span>
+                    <span className="lang-ru">игрока</span>
+                  </span>
+                  </div>
+                  <div>
+                    <Icon>◷</Icon>
+                    <b>10–15</b>
+                    <span>
+                    <span className="lang-kk">минут</span>
+                    <span className="lang-ru">минут</span>
+                  </span>
+                  </div>
+                  <div>
+                    <Icon>☆</Icon>
+                    <b>3+</b>
+                    <span>
+                    <span className="lang-kk">жас</span>
+                    <span className="lang-ru">возраст</span>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="development">
+            <div>
+              <p className="overline gold">
+                <span className="lang-kk">ОЙЫННЫҢ ПАЙДАСЫ</span>
+                <span className="lang-ru">ПОЛЬЗА ИГРЫ</span>
+              </p>
+              <h2>
+                <span className="lang-kk">URKER MEMO нені дамытады</span>
+                <span className="lang-ru">Что развивает URKER MEMO</span>
+              </h2>
+            </div>
+
+            <div className="benefit-grid">
+              <article>
+                <b>01</b>
+                <h3>
+                  <span className="lang-kk">Есте сақтау қабілеті</span>
+                  <span className="lang-ru">Память</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Бала карточкалардың орналасуын есте сақтап,
+                  ақпаратты есте сақтау және оны қажет кезінде
+                  қайта жаңғырту дағдыларын дамытады.
+                </span>
+                  <span className="lang-ru">
+                  Ребёнок запоминает расположение карточек и развивает
+                  навыки сохранения информации и её воспроизведения
+                  в нужный момент.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <b>02</b>
+                <h3>
+                  <span className="lang-kk">Зейін</span>
+                  <span className="lang-ru">Внимание</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Жұп карточкаларды іздеу арқылы баланың зейіні
+                  шоғырланып, назарын тұрақты ұстай білуі мен
+                  байқағыштық қабілеті дамиды.
+                </span>
+                  <span className="lang-ru">
+                  Поиск пар помогает ребёнку концентрироваться,
+                  устойчиво удерживать внимание и развивать
+                  наблюдательность.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <b>03</b>
+                <h3>
+                  <span className="lang-kk">Логикалық ойлау</span>
+                  <span className="lang-ru">Логическое мышление</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Әрбір ойын қадамы салыстыруға, талдауға және дұрыс
+                  шешім қабылдау дағдыларын дамытуға ықпал етеді.
+                </span>
+                  <span className="lang-ru">
+                  Каждый игровой ход развивает навыки сравнения,
+                  анализа и принятия правильных решений.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <b>04</b>
+                <h3>
+                  <span className="lang-kk">Таным көкжиегі</span>
+                  <span className="lang-ru">Познавательный кругозор</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Карточкалардағы иллюстрациялар балаларды қазақ халқының
+                  мәдениетімен, ұлттық құндылықтарымен және танымдық
+                  нысандарымен таныстырып, дүниетанымын кеңейтеді.
+                </span>
+                  <span className="lang-ru">
+                  Иллюстрации на карточках знакомят детей с культурой
+                  казахского народа, национальными ценностями и
+                  познавательными объектами, расширяя их кругозор.
+                </span>
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section className="rules-section">
+            <div className="rules-copy">
+              <p className="overline gold">
+                <span className="lang-kk">ҚАЛАЙ ОЙНАУ КЕРЕК</span>
+                <span className="lang-ru">КАК ИГРАТЬ</span>
+              </p>
+              <h2>
+                <span className="lang-kk">Ережелері</span>
+                <span className="lang-ru">Правила</span>
+              </h2>
+
+              <ol>
+                <li>
+                  <span>1</span>
+                  <p>
+                    <b>
+                      <span className="lang-kk">Карточкаларды дайындаңыз</span>
+                      <span className="lang-ru">Подготовьте карточки</span>
+                    </b>
+                    <span className="lang-kk">
+                    48 карточканы араластырып, суреті төмен қараған
+                    күйде үстелге орналастырыңыз.
+                  </span>
+                    <span className="lang-ru">
+                    Перемешайте 48 карточек и разложите их на столе
+                    изображением вниз.
+                  </span>
+                  </p>
+                </li>
+
+                <li>
+                  <span>2</span>
+                  <p>
+                    <b>
+                      <span className="lang-kk">Жұп карточкаларды ашыңыз</span>
+                      <span className="lang-ru">Открывайте пары</span>
+                    </b>
+                    <span className="lang-kk">
+                    Әр ойыншы кезекпен екі карточканы ашады.
+                  </span>
+                    <span className="lang-ru">
+                    Каждый игрок по очереди открывает две карточки.
+                  </span>
+                  </p>
+                </li>
+
+                <li>
+                  <span>3</span>
+                  <p>
+                    <b>
+                      <span className="lang-kk">Сәйкес жұптарды жинаңыз</span>
+                      <span className="lang-ru">Собирайте совпадающие пары</span>
+                    </b>
+                    <span className="lang-kk">
+                    Егер екі карточкадағы сурет бірдей болса,
+                    ойыншы оларды өзіне алады. Егер әртүрлі болса,
+                    карточкаларды қайтадан аударып, орнына қояды.
+                  </span>
+                    <span className="lang-ru">
+                    Если изображения на двух карточках совпадают,
+                    игрок забирает их себе. Если они разные,
+                    карточки переворачивают обратно и возвращают на место.
+                  </span>
+                  </p>
+                </li>
+
+                <li>
+                  <span>4</span>
+                  <p>
+                    <b>
+                      <span className="lang-kk">Жеңімпазды анықтаңыз</span>
+                      <span className="lang-ru">Определите победителя</span>
+                    </b>
+                    <span className="lang-kk">
+                    Ең көп жұп карточка жинаған ойыншы жеңімпаз атанады.
+                  </span>
+                    <span className="lang-ru">
+                    Побеждает игрок, собравший больше всего пар карточек.
+                  </span>
+                  </p>
+                </li>
+              </ol>
+            </div>
+
+            <div className="rules-photo">
+              <img
+                  src="/images/memo.jpg"
+                  alt="URKER MEMO карточкалары мен қаптамасы"
+              />
+            </div>
+          </section>
+
+          <section className="inside">
+            <p className="overline gold">
+              <span className="lang-kk">ЖИЫНТЫҚ ҚҰРАМЫ</span>
+              <span className="lang-ru">КОМПЛЕКТАЦИЯ</span>
+            </p>
+            <h2>
+              <span className="lang-kk">Қораптың ішінде</span>
+              <span className="lang-ru">Внутри коробки</span>
+            </h2>
+
+            <div>
+              <strong>48</strong>
+              <span>
+              <span className="lang-kk">карточка</span>
+              <span className="lang-ru">карточек</span>
+            </span>
+              <i></i>
+              <strong>24</strong>
+              <span>
+              <span className="lang-kk">жұп карточка</span>
+              <span className="lang-ru">пары</span>
+            </span>
+              <i></i>
+              <strong>1</strong>
+              <span>
+              <span className="lang-kk">нұсқаулық</span>
+              <span className="lang-ru">инструкция</span>
+            </span>
+            </div>
+          </section>
+
+          <section className="product-cta">
+            <p className="overline">
+              <span className="lang-kk">ҮЙГЕ ЖӘНЕ БІЛІМ БЕРУ ОРТАЛЫҚТАРЫНА</span>
+              <span className="lang-ru">ДЛЯ ДОМА И ОБРАЗОВАТЕЛЬНЫХ ЦЕНТРОВ</span>
+            </p>
+            <h2>
+            <span className="lang-kk">
+              Қазақстанды балалармен
+              <br />
+              бірге таныңыз
+            </span>
+              <span className="lang-ru">
+              Открывайте Казахстан
+              <br />
+              вместе с детьми
+            </span>
+            </h2>
+            <a href={whatsappLink} target="_blank" rel="noreferrer">
+              <span className="lang-kk">Бізбен байланысыңыз →</span>
+              <span className="lang-ru">Связаться с нами →</span>
+            </a>
+          </section>
+        </main>
+
+        {modal && (
+            <div className="modal" onClick={() => setModal(false)}>
+              <button aria-label="Закрыть">×</button>
+              <img src="/images/memo2.jpg" alt="Urker Memo крупным планом" />
+            </div>
+        )}
+
+        <Footer navigate={navigate} />
+      </>
+  );
 }
 
 function UrkerGo({ navigate }) {
+  const goPrice = '18 000 ₸';
+  const goWhatsappNumber = '87765230644';
+
+  const goWhatsappMessage = encodeURIComponent(
+      'Здравствуйте! Хочу заказать игру «URKER GO».'
+  );
+
+  const goWhatsappLink = `https://wa.me/${goWhatsappNumber}?text=${goWhatsappMessage}`;
+
   const [modal, setModal] = useState(null);
   const [goMapSlide, setGoMapSlide] = useState(0);
   const goMapSlides = ['/images/1.jpg', '/images/2.jpg'];
   const currentGoMapSlide = goMapSlides[goMapSlide];
-  useEffect(() => { document.title = '«URKER GO» мен Үркермен елтану | Urker Baulu Mektebi'; }, []);
+
+  useEffect(() => {
+    document.title = '«URKER GO» мен Үркермен елтану | Urker Baulu Mektebi';
+  }, []);
+
   const openImage = (src) => setModal(src);
-  return <><Header navigate={navigate} /><main className="go-page">
-    <section className="product-hero go-hero"><div className="product-layout">
-      <div className="product-photo go-main-photo"><div className="go-photo-grid"><img src="/images/скрин.png" alt="URKER GO және Үркермен елтану жинағы" onClick={() => openImage('/images/скрин.png')} /></div><div className="go-photo-links"><button onClick={() => openImage('/images/скрин.png')}><span className="lang-kk">Суретті үлкейту ⌕</span><span className="lang-ru">Увеличить фото ⌕</span></button></div></div>
-      <div className="product-info"><div className="product-language-section lang-kk"><p className="overline gold"></p><h1>«Үркермен елтану» картасымен бірге ұсынылатын «URKER GO» зияткерлік үстел ойыны</h1><p className="description">«Үркермен елтану» картасымен бірге ұсынылатын «URKER GO» зияткерлік үстел ойыны оқу-әдістемелік кешені білім беру үдерісін ұйымдастырудың заманауи талаптарына сәйкес келеді және білім алушылардың әмбебап оқу құзыреттерін, зерттеушілік дағдыларын, функционалдық сауаттылығын қалыптастыруға, сондай-ақ азаматтық жауапкершілігін, патриоттық сезімін және Қазақстан Республикасының тарихи, мәдени әрі табиғи мұрасына құрметпен қарауын тәрбиелеуге бағытталған.</p><p className="description">Кешеннің мазмұны білім алушылардың зияткерлік қабілеттерін жан-жақты дамытуға мүмкіндік беретін, өзара логикалық байланыста құрылған ойын және танымдық материалдар жүйесінен тұрады.</p></div><div className="product-language-section lang-ru"><p className="overline gold"></p><h1>Интеллектуальная настольная игра «URKER GO» с картой «Үркермен елтану»</h1><p className="description">Учебно-методический комплект «Интеллектуальная настольная игра URKER GO» с картой «Үркермен елтану» соответствует современным требованиям к организации образовательного процесса и ориентирован на формирование универсальных учебных компетенций, исследовательских навыков, функциональной грамотности, а также воспитание гражданственности, патриотизма и уважительного отношения к историческому, культурному и природному наследию Республики Казахстан.</p><p className="description">Содержание комплекта представляет собой логически выстроенную систему игровых и познавательных материалов, обеспечивающих комплексное развитие интеллектуальных способностей обучающихся.</p></div><div className="spec-row go-specs"><div><Icon>☆</Icon><b>9+</b><span><span className="lang-kk">жас</span><span className="lang-ru">возраст</span></span></div><div><Icon>▦</Icon><b>4</b><span><span className="lang-kk">тақырып</span><span className="lang-ru">темы</span></span></div><div><Icon>⌖</Icon><b>20</b><span><span className="lang-kk">өңір</span><span className="lang-ru">регионов</span></span></div></div></div>
-    </div></section>
-    <section className="go-purpose go-play"><div className="go-purpose-heading"><h2><span className="lang-kk">Қазақстанды ойын<br />арқылы таныңыз</span><span className="lang-ru">Исследуйте Казахстан<br/> через игру</span></h2><div className="go-purpose-copy"><p className="overline gold"><span className="lang-kk">ОЙЫН БАРЫСЫ</span><span className="lang-ru">ХОД ИГРЫ</span></p><p><span className="lang-kk">Ойыншылар ойын алаңындағы бағыт бойынша жүріп, сұрақтарға жауап береді және әрбір дұрыс жауап үшін жетон алады. Кешен мектептегі сабақтарда, білім беру орталықтарында және отбасылық ойын ретінде пайдалануға арналған.</span><span className="lang-ru">Игроки движутся по маршруту игрового поля, отвечают на вопросы и получают жетон за каждый правильный ответ. Комплект предназначен для школьных занятий, образовательных центров и семейной игры.</span></p></div></div></section>
-    <section className="go-method go-teachers"><div><p className="overline gold"><span className="lang-kk"></span><span className="lang-ru"></span></p><h2><span className="lang-kk">Білім беру үдерісіне арналған дайын ресурс</span><span className="lang-ru">Готовый ресурс для образовательного процесса</span></h2><p><span className="lang-kk">Жинақты Қазақстан тарихы мен географиясы сабақтарында, сыныптан тыс жұмыстарда, пәндік апталықтарда, зияткерлік турнирлерде және мектеп кітапханаларында тиімді пайдалануға болады.</span><span className="lang-ru">Комплект можно эффективно использовать на уроках истории и географии Казахстана, во внеурочной работе, на предметных неделях, интеллектуальных турнирах и в школьных библиотеках.</span></p><ul className="lang-kk"><li>Жеке, топтық және командалық жұмысқа арналған</li><li>Жобалық және зерттеу тапсырмаларын ұйымдастыруға мүмкіндік береді</li><li>Бастауыш, негізгі және қосымша білім беру ұйымдарына арналған</li></ul><ul className="lang-ru"><li>Для индивидуальной, групповой и командной работы</li><li>Позволяет организовывать проектные и исследовательские задания</li><li>Для организаций начального, основного и дополнительного образования</li></ul></div><aside><strong>URKER GO</strong><p><span className="lang-kk">Ойын, зерттеу және елтану бір оқу-әдістемелік кешенде.</span><span className="lang-ru">Игра, исследование и изучение страны в одном учебно-методическом комплекте.</span></p></aside></section>
-    <section className="go-map-section"><div className="go-map-slider"><button className="go-map-image" onClick={() => openImage(currentGoMapSlide)}><img src={currentGoMapSlide} alt="Үркермен елтану танымдық-ақпараттық картасы" /></button><div className="go-map-slider-controls"><button type="button" onClick={() => setGoMapSlide((goMapSlide + goMapSlides.length - 1) % goMapSlides.length)} aria-label="Алдыңғы фото / Предыдущее фото">‹</button><div>{goMapSlides.map((image, index) => <button key={image} type="button" className={index === goMapSlide ? 'active' : ''} onClick={() => setGoMapSlide(index)} aria-label={`Фото ${index + 1}`}></button>)}</div><button type="button" onClick={() => setGoMapSlide((goMapSlide + 1) % goMapSlides.length)} aria-label="Келесі фото / Следующее фото">›</button></div></div><div className="go-map-copy"><p className="overline gold">«ҮРКЕРМЕН ЕЛТАНУ»</p><h2><span className="lang-kk">Қазақстан туралы білім — бір картада</span><span className="lang-ru">Знания о Казахстане — на одной карте</span></h2><p className="bilingual-copy"><span>Жинақтың маңызды бөлігінің бірі – заманауи инфографика және комикс форматында әзірленген «Үркермен елтану» танымдық-ақпараттық картасы. Картада Қазақстан Республикасының 17 облысы мен республикалық маңызы бар 3 қаласы қамтылып, еліміздің табиғи, тарихи және мәдени нысандары, көрнекті тұлғалары, сәулет ескерткіштері, туристік көрікті жерлері, табиғи байлықтары, өсімдіктер мен жануарлар дүниесі туралы жүйеленген ақпарат берілген.</span><span>Особое место в комплекте занимает познавательно-информационная карта «Үркермен елтану», выполненная в современном формате инфографики и комиксов. Карта охватывает 17 областей и 3 города республиканского значения Республики Казахстан, содержит систематизированную информацию о природных, исторических и культурных объектах, выдающихся личностях, памятниках архитектуры, туристических достопримечательностях, природных богатствах, флоре и фауне страны.</span></p></div></section>
-    <section className="product-cta"><p className="overline"><span className="lang-kk">ОҚЫТУ – ОЙЫН АРҚЫЛЫ</span><span className="lang-ru">ОБУЧЕНИЕ ЧЕРЕЗ ИГРУ</span></p><h2><span className="lang-kk">Urker Go-мен бірге,<br/>Қазақстанды таныңыз!</span><span className="lang-ru">Откройте Казахстан<br/>вместе с Urker Go!</span></h2><a href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20Urker%20Go" target="_blank" rel="noreferrer"><span className="lang-kk">Бізбен байланысыңыз →</span><span className="lang-ru">Связаться с нами →</span></a></section>
-  </main>{modal && <div className="modal" onClick={() => setModal(null)}><button aria-label="Закрыть">×</button><img src={modal} alt="Urker Go крупным планом" /></div>}<Footer navigate={navigate} /></>;
+
+  return (
+      <>
+        <Header navigate={navigate} />
+        <main className="go-page">
+          <section className="product-hero go-hero">
+            <div className="product-layout">
+              <div className="product-photo go-main-photo">
+                <div className="go-photo-grid">
+                  <img
+                      src="/images/скрин.png"
+                      alt="URKER GO және Үркермен елтану жинағы"
+                      onClick={() => openImage('/images/скрин.png')}
+                  />
+                </div>
+                <div className="go-photo-links">
+                  <button onClick={() => openImage('/images/скрин.png')}>
+                    <span className="lang-kk">Суретті үлкейту ⌕</span>
+                    <span className="lang-ru">Увеличить фото ⌕</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="product-info">
+                <div className="product-language-section lang-kk">
+                  <p className="overline gold"></p>
+                  <h1>
+                    «Үркермен елтану» картасымен бірге ұсынылатын «URKER GO»
+                    зияткерлік үстел ойыны
+                  </h1>
+                  <p className="description">
+                    «Үркермен елтану» картасымен бірге ұсынылатын «URKER GO»
+                    зияткерлік үстел ойыны оқу-әдістемелік кешені білім беру
+                    үдерісін ұйымдастырудың заманауи талаптарына сәйкес келеді
+                    және білім алушылардың әмбебап оқу құзыреттерін, зерттеушілік
+                    дағдыларын, функционалдық сауаттылығын қалыптастыруға,
+                    сондай-ақ азаматтық жауапкершілігін, патриоттық сезімін және
+                    Қазақстан Республикасының тарихи, мәдени әрі табиғи мұрасына
+                    құрметпен қарауын тәрбиелеуге бағытталған.
+                  </p>
+                  <p className="description">
+                    Кешеннің мазмұны білім алушылардың зияткерлік қабілеттерін
+                    жан-жақты дамытуға мүмкіндік беретін, өзара логикалық
+                    байланыста құрылған ойын және танымдық материалдар жүйесінен
+                    тұрады.
+                  </p>
+                </div>
+
+                <div className="product-language-section lang-ru">
+                  <p className="overline gold"></p>
+                  <h1>
+                    Интеллектуальная настольная игра «URKER GO» с картой
+                    «Үркермен елтану»
+                  </h1>
+                  <p className="description">
+                    Учебно-методический комплект «Интеллектуальная настольная
+                    игра URKER GO» с картой «Үркермен елтану» соответствует
+                    современным требованиям к организации образовательного
+                    процесса и ориентирован на формирование универсальных учебных
+                    компетенций, исследовательских навыков, функциональной
+                    грамотности, а также воспитание гражданственности, патриотизма
+                    и уважительного отношения к историческому, культурному и
+                    природному наследию Республики Казахстан.
+                  </p>
+                  <p className="description">
+                    Содержание комплекта представляет собой логически выстроенную
+                    систему игровых и познавательных материалов, обеспечивающих
+                    комплексное развитие интеллектуальных способностей
+                    обучающихся.
+                  </p>
+                </div>
+
+                {/* Цена + WhatsApp сверху, как на SafeInternet */}
+                <div className="product-purchase">
+                  <div className="product-price">{goPrice}</div>
+                  <a
+                      className="whatsapp-product-button"
+                      href={goWhatsappLink}
+                      target="_blank"
+                      rel="noreferrer"
+                  >
+                    <span>WhatsApp</span>
+                    <span>Заказать →</span>
+                  </a>
+                </div>
+
+                {/* Характеристики под ценой */}
+                <div className="spec-row go-specs">
+                  <div>
+                    <Icon>☆</Icon>
+                    <b>9+</b>
+                    <span>
+                    <span className="lang-kk">жас</span>
+                    <span className="lang-ru">возраст</span>
+                  </span>
+                  </div>
+                  <div>
+                    <Icon>▦</Icon>
+                    <b>4</b>
+                    <span>
+                    <span className="lang-kk">тақырып</span>
+                    <span className="lang-ru">темы</span>
+                  </span>
+                  </div>
+                  <div>
+                    <Icon>⌖</Icon>
+                    <b>20</b>
+                    <span>
+                    <span className="lang-kk">өңір</span>
+                    <span className="lang-ru">регионов</span>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="go-purpose go-play">
+            <div className="go-purpose-heading">
+              <h2>
+              <span className="lang-kk">
+                Қазақстанды ойын
+                <br />
+                арқылы таныңыз
+              </span>
+                <span className="lang-ru">
+                Исследуйте Казахстан
+                <br />
+                через игру
+              </span>
+              </h2>
+              <div className="go-purpose-copy">
+                <p className="overline gold">
+                  <span className="lang-kk">ОЙЫН БАРЫСЫ</span>
+                  <span className="lang-ru">ХОД ИГРЫ</span>
+                </p>
+                <p>
+                <span className="lang-kk">
+                  Ойыншылар ойын алаңындағы бағыт бойынша жүріп, сұрақтарға
+                  жауап береді және әрбір дұрыс жауап үшін жетон алады. Кешен
+                  мектептегі сабақтарда, білім беру орталықтарында және
+                  отбасылық ойын ретінде пайдалануға арналған.
+                </span>
+                  <span className="lang-ru">
+                  Игроки движутся по маршруту игрового поля, отвечают на
+                  вопросы и получают жетон за каждый правильный ответ. Комплект
+                  предназначен для школьных занятий, образовательных центров и
+                  семейной игры.
+                </span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="go-method go-teachers">
+            <div>
+              <p className="overline gold">
+                <span className="lang-kk"></span>
+                <span className="lang-ru"></span>
+              </p>
+              <h2>
+              <span className="lang-kk">
+                Білім беру үдерісіне арналған дайын ресурс
+              </span>
+                <span className="lang-ru">
+                Готовый ресурс для образовательного процесса
+              </span>
+              </h2>
+              <p>
+              <span className="lang-kk">
+                Жинақты Қазақстан тарихы мен географиясы сабақтарында, сыныптан
+                тыс жұмыстарда, пәндік апталықтарда, зияткерлік турнирлерде
+                және мектеп кітапханаларында тиімді пайдалануға болады.
+              </span>
+                <span className="lang-ru">
+                Комплект можно эффективно использовать на уроках истории и
+                географии Казахстана, во внеурочной работе, на предметных
+                неделях, интеллектуальных турнирах и в школьных библиотеках.
+              </span>
+              </p>
+              <ul className="lang-kk">
+                <li>Жеке, топтық және командалық жұмысқа арналған</li>
+                <li>
+                  Жобалық және зерттеу тапсырмаларын ұйымдастыруға мүмкіндік
+                  береді
+                </li>
+                <li>
+                  Бастауыш, негізгі және қосымша білім беру ұйымдарына арналған
+                </li>
+              </ul>
+              <ul className="lang-ru">
+                <li>Для индивидуальной, групповой и командной работы</li>
+                <li>
+                  Позволяет организовывать проектные и исследовательские задания
+                </li>
+                <li>
+                  Для организаций начального, основного и дополнительного
+                  образования
+                </li>
+              </ul>
+            </div>
+            <aside>
+              <strong>URKER GO</strong>
+              <p>
+              <span className="lang-kk">
+                Ойын, зерттеу және елтану бір оқу-әдістемелік кешенде.
+              </span>
+                <span className="lang-ru">
+                Игра, исследование и изучение страны в одном
+                учебно-методическом комплекте.
+              </span>
+              </p>
+            </aside>
+          </section>
+
+          <section className="go-map-section">
+            <div className="go-map-slider">
+              <button
+                  className="go-map-image"
+                  onClick={() => openImage(currentGoMapSlide)}
+              >
+                <img
+                    src={currentGoMapSlide}
+                    alt="Үркермен елтану танымдық-ақпараттық картасы"
+                />
+              </button>
+              <div className="go-map-slider-controls">
+                <button
+                    type="button"
+                    onClick={() =>
+                        setGoMapSlide(
+                            (goMapSlide + goMapSlides.length - 1) % goMapSlides.length
+                        )
+                    }
+                    aria-label="Алдыңғы фото / Предыдущее фото"
+                >
+                  ‹
+                </button>
+                <div>
+                  {goMapSlides.map((image, index) => (
+                      <button
+                          key={image}
+                          type="button"
+                          className={index === goMapSlide ? 'active' : ''}
+                          onClick={() => setGoMapSlide(index)}
+                          aria-label={`Фото ${index + 1}`}
+                      ></button>
+                  ))}
+                </div>
+                <button
+                    type="button"
+                    onClick={() =>
+                        setGoMapSlide((goMapSlide + 1) % goMapSlides.length)
+                    }
+                    aria-label="Келесі фото / Следующее фото"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+            <div className="go-map-copy">
+              <p className="overline gold">«ҮРКЕРМЕН ЕЛТАНУ»</p>
+              <h2>
+                <span className="lang-kk">Қазақстан туралы білім — бір картада</span>
+                <span className="lang-ru">Знания о Казахстане — на одной карте</span>
+              </h2>
+              <p className="bilingual-copy">
+              <span>
+                Жинақтың маңызды бөлігінің бірі – заманауи инфографика және
+                комикс форматында әзірленген «Үркермен елтану»
+                танымдық-ақпараттық картасы. Картада Қазақстан Республикасының
+                17 облысы мен республикалық маңызы бар 3 қаласы қамтылып,
+                еліміздің табиғи, тарихи және мәдени нысандары, көрнекті
+                тұлғалары, сәулет ескерткіштері, туристік көрікті жерлері,
+                табиғи байлықтары, өсімдіктер мен жануарлар дүниесі туралы
+                жүйеленген ақпарат берілген.
+              </span>
+                <span>
+                Особое место в комплекте занимает познавательно-информационная
+                карта «Үркермен елтану», выполненная в современном формате
+                инфографики и комиксов. Карта охватывает 17 областей и 3 города
+                республиканского значения Республики Казахстан, содержит
+                систематизированную информацию о природных, исторических и
+                культурных объектах, выдающихся личностях, памятниках
+                архитектуры, туристических достопримечательностях, природных
+                богатствах, флоре и фауне страны.
+              </span>
+              </p>
+            </div>
+          </section>
+
+          <section className="product-cta">
+            <p className="overline">
+              <span className="lang-kk">ОҚЫТУ – ОЙЫН АРҚЫЛЫ</span>
+              <span className="lang-ru">ОБУЧЕНИЕ ЧЕРЕЗ ИГРУ</span>
+            </p>
+            <h2>
+            <span className="lang-kk">
+              Urker Go-мен бірге,
+              <br />
+              Қазақстанды таныңыз!
+            </span>
+              <span className="lang-ru">
+              Откройте Казахстан
+              <br />
+              вместе с Urker Go!
+            </span>
+            </h2>
+            <a
+                href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20Urker%20Go"
+                target="_blank"
+                rel="noreferrer"
+            >
+              <span className="lang-kk">Бізбен байланысыңыз →</span>
+              <span className="lang-ru">Связаться с нами →</span>
+            </a>
+          </section>
+        </main>
+
+        {modal && (
+            <div className="modal" onClick={() => setModal(null)}>
+              <button aria-label="Закрыть">×</button>
+              <img src={modal} alt="Urker Go крупным планом" />
+            </div>
+        )}
+
+        <Footer navigate={navigate} />
+      </>
+  );
 }
 
 function UrkerWorkbook({ navigate }) {
@@ -122,7 +938,35 @@ function UrkerWorkbook({ navigate }) {
   return <><Header navigate={navigate} /><main className="workbook-page">
     <section className="product-hero workbook-hero"><div className="product-layout">
       <div className="product-photo workbook-photo workbook-hero-photos"><div><img src="/images/Дәптер.png" alt="Үркер дәптері оқу құралы" onClick={() => setModal('/images/Дәптер.png')} /><img src="/images/дәптерр.png" alt="Тетрадь Үркера оқу құралы" onClick={() => setModal('/images/дәптерр.png')} /></div><button onClick={() => setModal('/images/Дәптер.png')}><span className="lang-kk">Суретті үлкейту ⌕</span><span className="lang-ru">Увеличить изображение ⌕</span></button></div>
-      <div className="product-info"><p className="overline gold"></p><p className="description workbook-main-copy"><span><strong>«Үркер дәптері»</strong> – креативті ойлау мәдениетін дамытуға бағытталған тапсырмалар жүйесін қамтитын оқу құралы. Құралдың құрамына «Үркер дәптерімен» жұмыс жүргізуге арналған <strong>педагогтерге арналған әдістемелік ұсынымдар</strong> енгізілген.</span><span><strong>«Тетрадь Үркера»</strong> Пособие <strong>«Тетрадь Үркера»</strong> содержащее систему заданий, направленных на развитие культуры креативного мышления, с <strong>методическими рекомендациями для педагогов</strong>, работающих с «Тетрадью Үркер».</span></p><a className="primary-btn inline" href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20узнать%20подробнее%20о%20пособии%20Үркер%20Тетрадь" target="_blank" rel="noreferrer">Узнать подробнее <span>→</span></a></div>
+      <div className="product-info">
+        <p className="overline gold"></p>
+
+        <p className="description workbook-main-copy">
+    <span>
+      <strong>«Үркер дәптері»</strong> – креативті ойлау мәдениетін дамытуға бағытталған тапсырмалар жүйесін қамтитын оқу құралы. Құралдың құрамына «Үркер дәптерімен» жұмыс жүргізуге арналған <strong>педагогтерге арналған әдістемелік ұсынымдар</strong> енгізілген.
+    </span>
+
+          <span>
+      <strong>«Тетрадь Үркера»</strong> Пособие <strong>«Тетрадь Үркера»</strong> содержащее систему заданий, направленных на развитие культуры креативного мышления, с <strong>методическими рекомендациями для педагогов</strong>, работающих с «Тетрадью Үркер».
+    </span>
+        </p>
+
+        <div className="product-purchase">
+          <div className="product-price">
+            1 500 ₸
+          </div>
+
+          <a
+              className="whatsapp-product-button"
+              href="https://wa.me/87765230644?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
+              target="_blank"
+              rel="noreferrer"
+          >
+            <span>WhatsApp</span>
+            <span>Заказать →</span>
+          </a>
+        </div>
+      </div>
     </div></section>
     <section className="workbook-text-section"><div className="workbook-text-intro"><p className="overline gold">ҮРКЕР ДӘПТЕРІ · РАБОЧАЯ ТЕТРАДЬ</p><h2>ӘДІСТЕМЕЛІК ҚҰРЫЛЫМ</h2><h2>МЕТОДИЧЕСКАЯ СТРУКТУРА</h2></div><div className="workbook-numbered-list"><article><span>01</span><div><h3>Креативті ойлауды дамытуға арналған бірегей тапсырмалар жүйесі</h3><p>«Үркер дәптері» балалардың  креативті, сыни және логикалық ойлауын, функционалдық сауаттылығын дамытуға бағытталған жүйелі шығармашылық тапсырмалардан тұрады.</p></div></article><article><span>02</span><div><h3>Оқытудың заманауи әдістемесіне негізделген құрылым</h3><p>Дәптердегі тапсырмалар «тірек сөз» технологиясы, диалогтік оқыту және зерттеушілік тәсілдер арқылы оқушылардың танымдық белсенділігін, сұрақ қою, талдау және қорытынды жасау дағдыларын қалыптастырады.</p></div></article><article><span>03</span><div><h3>Педагогтерге арналған әдістемелік нұсқаулықпен қамтамасыз етілген</h3><p>Жинаққа мұғалімдерге арналған әдістемелік ұсынымдар енгізілген. Онда тапсырмаларды өткізу әдістемесі, сабақтарды ұйымдастыру жолдары, бағалау тәсілдері және креативті ойлауды дамытуға арналған практикалық ұсыныстар берілген.</p></div></article><article><span>04</span><div><h3>Уникальная система заданий для развития креативного мышления</h3><p>Рабочая тетрадь «Үркер» содержит систему творческих заданий, направленных на развитие креативного, критического и логического мышления, а также функциональной грамотности обучающихся.</p></div></article><article><span>05</span><div><h3>Структура, основанная на современных методических подходах к обучению</h3><p>Задания тетради разработаны с использованием технологии «опорных слов», диалогового обучения и исследовательского подхода, что способствует развитию познавательной активности обучающихся, формированию навыков постановки вопросов, анализа информации и аргументированного формулирования выводов.</p></div></article><article><span>06</span><div><h3>Методическое сопровождение для педагогов</h3><p>Комплект включает методические рекомендации для педагогов, содержащие описание методики проведения заданий, рекомендации по организации учебного процесса, подходы к оцениванию результатов и практические рекомендации по развитию креативного мышления у обучающихся.</p></div></article></div></section>
     <section className="workbook-gallery"><div className="workbook-gallery-images"><button className="workbook-image-button workbook-spread-image" onClick={() => setModal('/images/дәптер4.png')}><img src="/images/дәптер4.png" alt="Разворот пособия Үркер дәптері" /></button><button className="workbook-image-button workbook-spread-image" onClick={() => setModal('/images/дәптер3.png')}><img src="/images/дәптер3.png" alt="Страница пособия Үркер дәптері" /></button></div></section>
@@ -131,15 +975,225 @@ function UrkerWorkbook({ navigate }) {
 
 function SafeInternet({ navigate }) {
   const [modal, setModal] = useState(null);
-  useEffect(() => { document.title = 'Қауіпсіз ғаламтор | Urker Baulu Mektebi'; }, []);
-  return <><Header navigate={navigate} /><main className="safe-page">
-    <section className="product-hero safe-hero"><div className="product-layout">
-      <div className="product-photo safe-photo"><img src="/images/qg2.jpeg" alt="Интеллектуальная настольная игра Қауіпсіз ғаламтор" onClick={() => setModal('/images/qg2.jpeg')} /><button onClick={() => setModal('/images/qg2.jpeg')}>⌕ Увеличить изображение</button></div>
-      <div className="product-info"><p className="overline safe-overline">ИНТЕРАКТИВТІ ОЙЫН · ИНТЕРАКТИВНАЯ ИГРА</p><h1><span className="lang-kk">Қауіпсіз ғаламтор</span><span className="lang-ru">Безопасный интернет</span></h1><p className="description bilingual-copy"><span>«Қауіпсіз ғаламтор» ойыны мазмұны білім алушылардың интернет желісін қауіпсіз пайдалану қағидалары туралы түсініктерін қалыптастыруға бағытталған интерактивті ойын тапсырмалары жүйесінен тұрады. Ойын барысында цифрлық кеңістікте балалар кездесуі мүмкін шынайы өмірлік жағдаяттар үлгіленіп, олардың қауіпсіз мінез-құлық дағдылары мен дұрыс әрекет ету алгоритмдерін қалыптастыруға мүмкіндік береді.</span><span>Содержание игры «Безопасный интернет» представляет собой систему интерактивных игровых заданий, направленных на формирование у обучающихся представлений о правилах безопасного использования сети Интернет. Игровые ситуации моделируют реальные жизненные ситуации, с которыми могут столкнуться дети в цифровом пространстве, и помогают вырабатывать алгоритмы безопасного поведения.</span></p><div className="spec-row safe-specs"><div><Icon>☆</Icon><b>7–10</b><span>возраст</span></div><div><Icon>⌁</Icon><b>Офлайн</b><span>формат</span></div><div><Icon>✓</Icon><b>Командно</b><span>обучение</span></div></div><a className="primary-btn inline safe-button" href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20узнать%20подробнее%20об%20игре%20Қауіпсіз%20ғаламтор" target="_blank" rel="noreferrer">Узнать о наличии <span>→</span></a></div>
-    </div></section>
-    <section className="safe-topics"><div className="safe-title"><p className="overline"><span className="lang-kk">ОЙЫН НЕНІ ҮЙРЕТЕДІ</span><span className="lang-ru">ЧЕМУ УЧИТ ИГРА</span></p><h2><span className="lang-kk">Желіде сенімді әрекет етудің бес ережесі</span><span className="lang-ru">Пять правил уверенного поведения в сети</span></h2></div><div className="safe-topic-grid"><article><span>01</span><h3><span className="lang-kk">Жеке деректерді қорғау</span><span className="lang-ru">Защита личных данных</span></h3><p><span className="lang-kk">Қандай мәліметтерді бейтаныс адамдарға айтуға және ашық жариялауға болмайтынын түсіндіреді.</span><span className="lang-ru">Какие сведения нельзя сообщать незнакомцам и публиковать открыто.</span></p></article><article><span>02</span><h3><span className="lang-kk">Қауіпсіз қарым-қатынас</span><span className="lang-ru">Безопасное общение</span></h3><p><span className="lang-kk">Әлеуметтік желілерде, чаттарда және мессенджерлерде қалай дұрыс әрекет ету керегін үйретеді.</span><span className="lang-ru">Как вести себя в социальных сетях, чатах и мессенджерах.</span></p></article><article><span>03</span><h3><span className="lang-kk">Қауіпті тану</span><span className="lang-ru">Распознавание угроз</span></h3><p><span className="lang-kk">Күдікті хабарламаны, сілтемені немесе өтінішті қалай байқауға болатынын көрсетеді.</span><span className="lang-ru">Как заметить подозрительное сообщение, ссылку или просьбу.</span></p></article><article><span>04</span><h3><span className="lang-kk">Цифрлық әдеп</span><span className="lang-ru">Цифровой этикет</span></h3><p><span className="lang-kk">Интернетте неге құрмет, адалдық және жауапкершілік маңызды екенін түсіндіреді.</span><span className="lang-ru">Почему в интернете важны уважение, честность и ответственность.</span></p></article><article><span>05</span><h3><span className="lang-kk">Қауіпсіз шешім</span><span className="lang-ru">Безопасное решение</span></h3><p><span className="lang-kk">Қашан тоқтап, үлкендерден көмек сұрау керегін үйретеді.</span><span className="lang-ru">Когда нужно остановиться и обратиться за помощью ко взрослому.</span></p></article></div></section>
-    <section className="product-cta safe-cta"><p className="overline"><span className="lang-kk">ҚАУІПСІЗДІК БІЛІМНЕН БАСТАЛАДЫ</span><span className="lang-ru">БЕЗОПАСНОСТЬ НАЧИНАЕТСЯ СО ЗНАНИЙ</span></p><h2><span className="lang-kk">Баланы цифрлық әлемге дайындаңыз</span><span className="lang-ru">Подготовьте ребёнка к цифровому миру</span></h2><a href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20игру%20Қауіпсіз%20ғаламтор" target="_blank" rel="noreferrer"><span className="lang-kk">Бізбен байланысыңыз →</span><span className="lang-ru">Связаться с нами →</span></a></section>
-  </main>{modal && <div className="modal" onClick={() => setModal(null)}><button aria-label="Закрыть">×</button><img src={modal} alt="Қауіпсіз ғаламтор крупным планом" /></div>}<Footer navigate={navigate} /></>;
+
+  useEffect(() => {
+    document.title = 'Қауіпсіз ғаламтор | Urker Baulu Mektebi';
+  }, []);
+
+  return (
+      <>
+        <Header navigate={navigate} />
+        <main className="safe-page">
+          <section className="product-hero safe-hero">
+            <div className="product-layout">
+              <div className="product-photo safe-photo">
+                <img
+                    src="/images/qg2.jpeg"
+                    alt="Интеллектуальная настольная игра Қауіпсіз ғаламтор"
+                    onClick={() => setModal('/images/qg2.jpeg')}
+                />
+                <button onClick={() => setModal('/images/qg2.jpeg')}>
+                  ⌕ Увеличить изображение
+                </button>
+              </div>
+
+              <div className="product-info">
+                <p className="overline safe-overline">
+                  ИНТЕРАКТИВТІ ОЙЫН · ИНТЕРАКТИВНАЯ ИГРА
+                </p>
+
+                <h1>
+                  <span className="lang-kk">Қауіпсіз ғаламтор</span>
+                  <span className="lang-ru">Безопасный интернет</span>
+                </h1>
+
+                <p className="description bilingual-copy">
+                <span>
+                  «Қауіпсіз ғаламтор» ойыны мазмұны білім алушылардың интернет
+                  желісін қауіпсіз пайдалану қағидалары туралы түсініктерін
+                  қалыптастыруға бағытталған интерактивті ойын тапсырмалары
+                  жүйесінен тұрады. Ойын барысында цифрлық кеңістікте балалар
+                  кездесуі мүмкін шынайы өмірлік жағдаяттар үлгіленіп, олардың
+                  қауіпсіз мінез-құлық дағдылары мен дұрыс әрекет ету
+                  алгоритмдерін қалыптастыруға мүмкіндік береді.
+                </span>
+                  <span>
+                  Содержание игры «Безопасный интернет» представляет собой
+                  систему интерактивных игровых заданий, направленных на
+                  формирование у обучающихся представлений о правилах
+                  безопасного использования сети Интернет. Игровые ситуации
+                  моделируют реальные жизненные ситуации, с которыми могут
+                  столкнуться дети в цифровом пространстве, и помогают
+                  вырабатывать алгоритмы безопасного поведения.
+                </span>
+                </p>
+
+                <div className="product-purchase">
+                  <div className="product-price">2 500 ₸</div>
+                  <a
+                      className="whatsapp-product-button"
+                      href="https://wa.me/87765230644?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
+                      target="_blank"
+                      rel="noreferrer"
+                  >
+                    <span>WhatsApp</span>
+                    <span>Заказать →</span>
+                  </a>
+                </div>
+
+                <div className="spec-row safe-specs">
+                  <div>
+                    <Icon>☆</Icon>
+                    <b>7–10</b>
+                    <span>возраст</span>
+                  </div>
+                  <div>
+                    <Icon>⌁</Icon>
+                    <b>Офлайн</b>
+                    <span>формат</span>
+                  </div>
+                  <div>
+                    <Icon>✓</Icon>
+                    <b>Командно</b>
+                    <span>обучение</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="safe-topics">
+            <div className="safe-title">
+              <p className="overline">
+                <span className="lang-kk">ОЙЫН НЕНІ ҮЙРЕТЕДІ</span>
+                <span className="lang-ru">ЧЕМУ УЧИТ ИГРА</span>
+              </p>
+              <h2>
+                <span className="lang-kk">Желіде сенімді әрекет етудің бес ережесі</span>
+                <span className="lang-ru">Пять правил уверенного поведения в сети</span>
+              </h2>
+            </div>
+
+            <div className="safe-topic-grid">
+              <article>
+                <span>01</span>
+                <h3>
+                  <span className="lang-kk">Жеке деректерді қорғау</span>
+                  <span className="lang-ru">Защита личных данных</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Қандай мәліметтерді бейтаныс адамдарға айтуға және ашық
+                  жариялауға болмайтынын түсіндіреді.
+                </span>
+                  <span className="lang-ru">
+                  Какие сведения нельзя сообщать незнакомцам и публиковать
+                  открыто.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <span>02</span>
+                <h3>
+                  <span className="lang-kk">Қауіпсіз қарым-қатынас</span>
+                  <span className="lang-ru">Безопасное общение</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Әлеуметтік желілерде, чаттарда және мессенджерлерде қалай
+                  дұрыс әрекет ету керегін үйретеді.
+                </span>
+                  <span className="lang-ru">
+                  Как вести себя в социальных сетях, чатах и мессенджерах.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <span>03</span>
+                <h3>
+                  <span className="lang-kk">Қауіпті тану</span>
+                  <span className="lang-ru">Распознавание угроз</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Күдікті хабарламаны, сілтемені немесе өтінішті қалай байқауға
+                  болатынын көрсетеді.
+                </span>
+                  <span className="lang-ru">
+                  Как заметить подозрительное сообщение, ссылку или просьбу.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <span>04</span>
+                <h3>
+                  <span className="lang-kk">Цифрлық әдеп</span>
+                  <span className="lang-ru">Цифровой этикет</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Интернетте неге құрмет, адалдық және жауапкершілік маңызды
+                  екенін түсіндіреді.
+                </span>
+                  <span className="lang-ru">
+                  Почему в интернете важны уважение, честность и
+                  ответственность.
+                </span>
+                </p>
+              </article>
+
+              <article>
+                <span>05</span>
+                <h3>
+                  <span className="lang-kk">Қауіпсіз шешім</span>
+                  <span className="lang-ru">Безопасное решение</span>
+                </h3>
+                <p>
+                <span className="lang-kk">
+                  Қашан тоқтап, үлкендерден көмек сұрау керегін үйретеді.
+                </span>
+                  <span className="lang-ru">
+                  Когда нужно остановиться и обратиться за помощью ко
+                  взрослому.
+                </span>
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section className="product-cta safe-cta">
+            <p className="overline">
+              <span className="lang-kk">ҚАУІПСІЗДІК БІЛІМНЕН БАСТАЛАДЫ</span>
+              <span className="lang-ru">БЕЗОПАСНОСТЬ НАЧИНАЕТСЯ СО ЗНАНИЙ</span>
+            </p>
+            <h2>
+              <span className="lang-kk">Баланы цифрлық әлемге дайындаңыз</span>
+              <span className="lang-ru">Подготовьте ребёнка к цифровому миру</span>
+            </h2>
+            <a
+                href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20игру%20Қауіпсіз%20ғаламтор"
+                target="_blank"
+                rel="noreferrer"
+            >
+              <span className="lang-kk">Бізбен байланысыңыз →</span>
+              <span className="lang-ru">Связаться с нами →</span>
+            </a>
+          </section>
+        </main>
+
+        {modal && (
+            <div className="modal" onClick={() => setModal(null)}>
+              <button aria-label="Закрыть">×</button>
+              <img src={modal} alt="Қауіпсіз ғаламтор крупным планом" />
+            </div>
+        )}
+
+        <Footer navigate={navigate} />
+      </>
+  );
 }
 
 export default function Main() {

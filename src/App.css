@@ -427,3 +427,83 @@ html[data-lang='kk'] .go-method ul.lang-kk,html:not([data-lang]) .go-method ul.l
     font-size:24px;
   }
 }
+
+.game-card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.game-price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #b58a3a;
+  white-space: nowrap;
+}
+
+.whatsapp-button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: #25D366;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.details-button {
+  margin-top: 12px;
+}
+.product-purchase {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(181, 138, 58, 0.25);
+}
+
+.product-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #b58a3a;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.whatsapp-product-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-product-button span:last-child {
+  font-weight: 600;
+}
+
+.whatsapp-product-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+}
