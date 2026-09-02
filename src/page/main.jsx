@@ -17,7 +17,7 @@ const games = [
     image: '/images/memo2.jpg',
     path: '/games/urker-memo',
     description: 'Қазақстан мұрасы бейнеленген карточкалар есте сақтау мен зейінді дамытады. Карточки с объектами наследия Казахстана развивают память и внимание.',
-    price: '3 800 ₸',
+    price: '4 500 ₸',
     ready: true
   },
   {
@@ -286,7 +286,7 @@ function Memo({ navigate }) {
 
                 {/* Цена + WhatsApp сверху, между линиями */}
                 <div className="product-purchase">
-                  <div className="product-price">3 800 ₸</div>
+                  <div className="product-price">4 500 ₸</div>
                   <a
                       className="whatsapp-product-button"
                       href={whatsappLink}
