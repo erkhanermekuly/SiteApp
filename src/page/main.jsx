@@ -94,7 +94,7 @@ function GameCard({ game, navigate }) {
     );
   }
 
-  const whatsappNumber = '87472769935';
+  const whatsappNumber = '87017626501';
 
   const whatsappMessage = encodeURIComponent(
       `Здравствуйте! Хочу приобрести игру «${game.name}».`
@@ -220,7 +220,7 @@ function Memo({ navigate }) {
   }, []);
 
   const whatsappLink =
-      'https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
+      'https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
 
   return (
       <>
@@ -583,7 +583,7 @@ function Memo({ navigate }) {
 
 function UrkerGo({ navigate }) {
   const goPrice = '18 000 ₸';
-  const goWhatsappNumber = '87472769935';
+  const goWhatsappNumber = '87017626501';
 
   const goWhatsappMessage = encodeURIComponent(
       'Здравствуйте! Хочу заказать игру «URKER GO».'
@@ -958,7 +958,7 @@ function UrkerWorkbook({ navigate }) {
 
           <a
               className="whatsapp-product-button"
-              href="https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
+              href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
               target="_blank"
               rel="noreferrer"
           >
@@ -1032,7 +1032,7 @@ function SafeInternet({ navigate }) {
                   <div className="product-price">2 500 ₸</div>
                   <a
                       className="whatsapp-product-button"
-                      href="https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
+                      href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
                       target="_blank"
                       rel="noreferrer"
                   >
