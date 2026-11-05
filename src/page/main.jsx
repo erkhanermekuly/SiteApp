@@ -17,7 +17,7 @@ const games = [
     image: '/images/memo2.jpg',
     path: '/games/urker-memo',
     description: 'Қазақстан мұрасы бейнеленген карточкалар есте сақтау мен зейінді дамытады. Карточки с объектами наследия Казахстана развивают память и внимание.',
-    price: '3 800 ₸',
+    price: '4 500 ₸',
     ready: true
   },
   {
@@ -75,6 +75,33 @@ function Footer({ navigate }) {
     <div><h4>Байланыс / Контакты</h4><a href="https://www.instagram.com/urker_iq?igsh=MTl5ZHIxNGphNHBycA==" target="_blank" rel="noreferrer">Instagram @urker_iq</a><span className="contact-person">Анар Тоқтаровна <br/><br/> 8 (701) 762-65-01 <br/><br/>urkerbaulumektebi@gmail.com</span></div>
   </div><div className="footer-bottom"><span>© 2026 Urker Baulu Mektebi</span><span>Барлық құқықтар қорғалған · Все права защищены</span></div></footer>;
 }
+function EmailButton({ email = "urkerbaulumektebi@gmail.com" }) {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Не удалось скопировать:", err);
+    }
+  };
+
+  return (
+      <div className="email-wrapper">
+        <button className="product-email btn" onClick={copyEmail}>
+          <svg viewBox="0 0 340 48" className="border" preserveAspectRatio="none">
+            <polyline points="339,1 339,47 1,47 1,1 339,1" className="bg-line" />
+            <polyline points="339,1 339,47 1,47 1,1 339,1" className="hl-line" />
+          </svg>
+          <span className="email-tooltip">
+          {copied ? "Скопировано!" : email}
+        </span>
+        </button>
+      </div>
+  );
+}
 
 function GameCard({ game, navigate }) {
   if (!game.ready) {
@@ -94,7 +121,7 @@ function GameCard({ game, navigate }) {
     );
   }
 
-  const whatsappNumber = '87472769935';
+  const whatsappNumber = '87017626501';
 
   const whatsappMessage = encodeURIComponent(
       `Здравствуйте! Хочу приобрести игру «${game.name}».`
@@ -214,13 +241,25 @@ function Games({ navigate }) { return <><Header navigate={navigate} /><main clas
 
 function Memo({ navigate }) {
   const [modal, setModal] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const email = "urkerbaulumektebi@gmail.com";
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(email);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
+  };
 
   useEffect(() => {
     document.title = 'Urker Memo | Urker Baulu Mektebi';
   }, []);
 
   const whatsappLink =
-      'https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
+      'https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
 
   return (
       <>
@@ -284,9 +323,9 @@ function Memo({ navigate }) {
                 </span>
                 </p>
 
-                {/* Цена + WhatsApp сверху, между линиями */}
+                {/* Цена + WhatsApp */}
                 <div className="product-purchase">
-                  <div className="product-price">3 800 ₸</div>
+                  <div className="product-price">4 500 ₸</div>
                   <a
                       className="whatsapp-product-button"
                       href={whatsappLink}
@@ -298,31 +337,46 @@ function Memo({ navigate }) {
                   </a>
                 </div>
 
+                {/* Email на всю ширину */}
+                <div className="email-wrapper">
+                  <button className="product-email btn" onClick={copyEmail}>
+                    <svg viewBox="0 0 340 48" className="border" preserveAspectRatio="none">
+                      <polyline points="339,1 339,47 1,47 1,1 339,1" className="bg-line" />
+                      <polyline points="339,1 339,47 1,47 1,1 339,1" className="hl-line" />
+                    </svg>
+                    <span className="email-tooltip">
+      {copied ? "Скопировано!" : email}
+    </span>
+                  </button>
+                </div>
+
                 {/* Характеристики под ценой */}
                 <div className="spec-row">
                   <div>
                     <Icon>♟</Icon>
                     <b>1–4</b>
                     <span>
-                    <span className="lang-kk">ойыншы</span>
-                    <span className="lang-ru">игрока</span>
-                  </span>
+      <span className="lang-kk">ойыншы</span>
+      <span className="lang-ru">игрока</span>
+    </span>
                   </div>
+
                   <div>
                     <Icon>◷</Icon>
                     <b>10–15</b>
                     <span>
-                    <span className="lang-kk">минут</span>
-                    <span className="lang-ru">минут</span>
-                  </span>
+      <span className="lang-kk">минут</span>
+      <span className="lang-ru">минут</span>
+    </span>
                   </div>
+
                   <div>
                     <Icon>☆</Icon>
                     <b>3+</b>
                     <span>
-                    <span className="lang-kk">жас</span>
-                    <span className="lang-ru">возраст</span>
-                  </span>
+      <span className="lang-kk">жас</span>
+      <span className="lang-ru">возраст</span>
+    </span>
                   </div>
                 </div>
               </div>
@@ -583,7 +637,8 @@ function Memo({ navigate }) {
 
 function UrkerGo({ navigate }) {
   const goPrice = '18 000 ₸';
-  const goWhatsappNumber = '87472769935';
+  const goWhatsappNumber = '87017626501';
+  
 
   const goWhatsappMessage = encodeURIComponent(
       'Здравствуйте! Хочу заказать игру «URKER GO».'
@@ -686,7 +741,7 @@ function UrkerGo({ navigate }) {
                     <span>Заказать →</span>
                   </a>
                 </div>
-
+                <EmailButton />
                 {/* Характеристики под ценой */}
                 <div className="spec-row go-specs">
                   <div>
@@ -780,9 +835,9 @@ function UrkerGo({ navigate }) {
                 географии Казахстана, во внеурочной работе, на предметных
                 неделях, интеллектуальных турнирах и в школьных библиотеках.
               </span>
-              </p>
-              <ul className="lang-kk">
-                <li>Жеке, топтық және командалық жұмысқа арналған</li>
+              </p> 
+              <ul className="lang-kk"> 
+                <li>Жеке, топтық және командалық жұмысқа арналған </li>
                 <li>
                   Жобалық және зерттеу тапсырмаларын ұйымдастыруға мүмкіндік
                   береді
@@ -958,7 +1013,7 @@ function UrkerWorkbook({ navigate }) {
 
           <a
               className="whatsapp-product-button"
-              href="https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
+              href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
               target="_blank"
               rel="noreferrer"
           >
@@ -966,6 +1021,7 @@ function UrkerWorkbook({ navigate }) {
             <span>Заказать →</span>
           </a>
         </div>
+        <EmailButton />
       </div>
     </div></section>
     <section className="workbook-text-section"><div className="workbook-text-intro"><p className="overline gold">ҮРКЕР ДӘПТЕРІ · РАБОЧАЯ ТЕТРАДЬ</p><h2>ӘДІСТЕМЕЛІК ҚҰРЫЛЫМ</h2><h2>МЕТОДИЧЕСКАЯ СТРУКТУРА</h2></div><div className="workbook-numbered-list"><article><span>01</span><div><h3>Креативті ойлауды дамытуға арналған бірегей тапсырмалар жүйесі</h3><p>«Үркер дәптері» балалардың  креативті, сыни және логикалық ойлауын, функционалдық сауаттылығын дамытуға бағытталған жүйелі шығармашылық тапсырмалардан тұрады.</p></div></article><article><span>02</span><div><h3>Оқытудың заманауи әдістемесіне негізделген құрылым</h3><p>Дәптердегі тапсырмалар «тірек сөз» технологиясы, диалогтік оқыту және зерттеушілік тәсілдер арқылы оқушылардың танымдық белсенділігін, сұрақ қою, талдау және қорытынды жасау дағдыларын қалыптастырады.</p></div></article><article><span>03</span><div><h3>Педагогтерге арналған әдістемелік нұсқаулықпен қамтамасыз етілген</h3><p>Жинаққа мұғалімдерге арналған әдістемелік ұсынымдар енгізілген. Онда тапсырмаларды өткізу әдістемесі, сабақтарды ұйымдастыру жолдары, бағалау тәсілдері және креативті ойлауды дамытуға арналған практикалық ұсыныстар берілген.</p></div></article><article><span>04</span><div><h3>Уникальная система заданий для развития креативного мышления</h3><p>Рабочая тетрадь «Үркер» содержит систему творческих заданий, направленных на развитие креативного, критического и логического мышления, а также функциональной грамотности обучающихся.</p></div></article><article><span>05</span><div><h3>Структура, основанная на современных методических подходах к обучению</h3><p>Задания тетради разработаны с использованием технологии «опорных слов», диалогового обучения и исследовательского подхода, что способствует развитию познавательной активности обучающихся, формированию навыков постановки вопросов, анализа информации и аргументированного формулирования выводов.</p></div></article><article><span>06</span><div><h3>Методическое сопровождение для педагогов</h3><p>Комплект включает методические рекомендации для педагогов, содержащие описание методики проведения заданий, рекомендации по организации учебного процесса, подходы к оцениванию результатов и практические рекомендации по развитию креативного мышления у обучающихся.</p></div></article></div></section>
@@ -991,7 +1047,7 @@ function SafeInternet({ navigate }) {
                     src="/images/qg2.jpeg"
                     alt="Интеллектуальная настольная игра Қауіпсіз ғаламтор"
                     onClick={() => setModal('/images/qg2.jpeg')}
-                />
+                />а
                 <button onClick={() => setModal('/images/qg2.jpeg')}>
                   ⌕ Увеличить изображение
                 </button>
@@ -1032,7 +1088,7 @@ function SafeInternet({ navigate }) {
                   <div className="product-price">2 500 ₸</div>
                   <a
                       className="whatsapp-product-button"
-                      href="https://wa.me/87472769935?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
+                      href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
                       target="_blank"
                       rel="noreferrer"
                   >
@@ -1040,6 +1096,7 @@ function SafeInternet({ navigate }) {
                     <span>Заказать →</span>
                   </a>
                 </div>
+                <EmailButton />
 
                 <div className="spec-row safe-specs">
                   <div>
