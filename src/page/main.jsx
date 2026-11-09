@@ -3,12 +3,31 @@ import '../App.css';
 
 const games = [
   {
-    name: '«URKER GO» мен Үркермен елтану',
-    type: 'Зияткерлік үстел ойыны · Интеллектуальная настольная игра',
+    name: 'URKER GO! PLUS',
+    type: 'Ойын жиынтығы · Игровой набор',
     image: '/images/go.png',
-    path: '/games/urker-go',
-    description: '«Үркермен елтану» картасымен Қазақстанды зерттеуге арналған оқу-әдістемелік кешен. Учебно-методический комплект для изучения Казахстана с картой «Үркермен елтану».',
+    path: '/games/urker-go-plus',
+    description: 'URKER GO! PLUS ойын жиынтығына қосымша «Үркермен елтану» танымдық кітапшасы бірге жүреді. В набор входит настольная игра URKER GO! и познавательная книжка «Үркермен елтану».',
     price: '18 000 ₸',
+    bundle: true,
+    ready: true
+  },
+  {
+    name: 'URKER GO!',
+    type: 'Танымдық үстел ойыны · Познавательная настольная игра',
+    image: '/images/urker-go.jpg',
+    path: '/games/urker-go',
+    description: 'Қазақстанның тарихы мен мәдениетін таныстыратын, ойлау қабілеті мен таным көкжиегін дамытатын ойын. Познавательная настольная игра об истории и культуре Казахстана.',
+    price: '15 000 ₸',
+    ready: true
+  },
+  {
+    name: '«Үркермен елтану»',
+    type: 'Танымдық кітапша · Тек қазақ тілінде',
+    image: '/images/urkermen-eltanu.jpg',
+    path: '/games/urkermen-eltanu',
+    description: 'Қазақстанды комикс форматында таныстыратын танымдық кітапша: 17 облыс және республикалық маңызы бар 3 қала. Тек қазақ тілінде.',
+    price: '3 000 ₸',
     ready: true
   },
   {
@@ -17,7 +36,7 @@ const games = [
     image: '/images/memo2.jpg',
     path: '/games/urker-memo',
     description: 'Қазақстан мұрасы бейнеленген карточкалар есте сақтау мен зейінді дамытады. Карточки с объектами наследия Казахстана развивают память и внимание.',
-    price: '4 500 ₸',
+    price: '3 800 ₸',
     ready: true
   },
   {
@@ -58,14 +77,30 @@ function tiltLeave(event) {
   event.currentTarget.style.setProperty('--ry', '0deg');
 }
 
+const urkerProductCSS = `
+  .urker-bundle-badge { position:absolute; top:12px; right:12px; z-index:4; background:#5e3b91; color:white; border-radius:7px; padding:8px 12px; font-size:12px; font-weight:800; box-shadow:0 5px 16px rgba(29,17,54,.28); display:flex; gap:4px; align-items:center; }
+  .urker-plus-includes { margin:24px 0 12px; padding:18px 20px; border:1px solid rgba(181,138,58,.3); background:rgba(181,138,58,.08); border-radius:12px; }
+  .urker-plus-includes strong { display:block; color:#916b26; margin-bottom:12px; font-weight:800; }
+  .urker-plus-includes p { margin:8px 0; line-height:1.65; }
+  .urker-topics { margin:24px 0; }
+  .urker-topics h3 { font-size:19px; line-height:1.4; margin:0 0 14px; }
+  .urker-topics ul { margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .urker-topics li { padding:12px; border:1px solid rgba(181,138,58,.25); border-radius:10px; display:flex; align-items:flex-start; gap:10px; line-height:1.45; }
+  .urker-topic-icon { font-size:23px; flex-shrink:0; }
+  .urker-topics li .lang-kk, .urker-topics li .lang-ru { display:block; }
+  .urker-language-note { display:inline-flex; padding:9px 14px; border-radius:8px; font-weight:700; background:rgba(181,138,58,.12); color:#936b25; }
+  .urker-single-page .product-photo > img { width:100%; height:auto; object-fit:contain; cursor:zoom-in; }
+  @media (max-width:650px) { .urker-topics ul { grid-template-columns:1fr; } .urker-bundle-badge { font-size:11px; padding:7px 9px; } }
+`;
+
 function Header({ navigate, dark = false }) {
   const [open, setOpen] = useState(false);
   const go = (path) => { setOpen(false); navigate(path); };
-  return <header className={`site-header ${dark ? 'header-dark' : ''}`}><div className="nav-shell">
+  return <><style>{urkerProductCSS}</style><header className={`site-header ${dark ? 'header-dark' : ''}`}><div className="nav-shell">
     <button className="brand" onClick={() => go('/')} aria-label="Басты бетке / На главную"><img src="/images/Urker-logo.png" alt="Urker Baulu Mektebi" /><span><strong>Urker Baulu Mektebi</strong><small><span>Оқу-танымдық өнімдер</span><span>Учебно-познавательная продукция</span></small></span></button>
     <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Открыть меню">☰</button>
     <nav className={open ? 'nav-open' : ''}><button onClick={() => go('/')}><span className="lang-kk">Басты бет</span><span className="lang-ru">Главная</span></button><button onClick={() => go('/games')}><span className="lang-kk">Өнімдер</span><span className="lang-ru">Продукция</span></button><a className="nav-contact" href="https://www.instagram.com/urker_iq?igsh=MTl5ZHIxNGphNHBycA==" target="_blank" rel="noreferrer">Instagram</a></nav>
-  </div></header>;
+  </div></header></>;
 }
 
 function Footer({ navigate }) {
@@ -121,7 +156,7 @@ function GameCard({ game, navigate }) {
     );
   }
 
-  const whatsappNumber = '87017626501';
+  const whatsappNumber = '+77758431822';
 
   const whatsappMessage = encodeURIComponent(
       `Здравствуйте! Хочу приобрести игру «${game.name}».`
@@ -166,6 +201,7 @@ function GameCard({ game, navigate }) {
           )}
 
           <span className="available-badge">Доступна</span>
+          {game.bundle && <span className="urker-bundle-badge">🎁 <span className="lang-kk">Жинақ /</span><span className="lang-ru">Набор</span></span>}
         </div>
 
         <div className="card-body">
@@ -230,7 +266,7 @@ function Home({ navigate }) {
   <main className="home-hero"><div className="hero-copy">
     <p className="lang-kk hero-language-copy"><strong>«Urker baulu mektebi»</strong><em>баулу арқылы тұлға қалыптастыратын</em><span>Балалардың зияткерлік әлеуетін дамытатын авторлық үстел ойындары мен білім беру материалдарын әзірлейтін шығармашылық орта.</span></p><p className="lang-ru hero-language-copy"><strong>«Urker baulu mektebi»</strong><em>развитие личности через обучение</em><span>Это - творческое пространство, разрабатывающее авторские настольные игры и образовательные материалы для развития интеллектуального потенциала детей.</span></p>
     <div className="hero-actions"><button className="primary-btn" onClick={() => navigate('/games')}><span className="lang-kk">Өнімдерді көру</span><span className="lang-ru">Смотреть продукцию</span> <span>→</span></button></div>
-    <div className="hero-facts"><div><strong>3+</strong><span>Возраст игроков</span></div><div><strong>4</strong><span>Игры в коллекции</span></div><div><strong>KZ</strong><span>Создано в Казахстане</span></div></div>
+    <div className="hero-facts"><div><strong>3+</strong><span>Возраст игроков</span></div><div><strong>{games.length}</strong><span>Товаров в коллекции</span></div><div><strong>KZ</strong><span>Создано в Казахстане</span></div></div>
   </div><div className="hero-product" onMouseMove={tiltMove} onMouseLeave={tiltLeave}><div className="depth-light"></div><div className="image-frame"><img src="/images/go.png" alt="URKER GO оқу-әдістемелік кешені" /></div><div className="floating-note"><b>Бірінші өнім · Первый продукт</b><span>URKER GO</span></div></div></main></div>
   <GameSlider navigate={navigate} />
   <section className="games-preview"><div className="section-heading"><div><p className="overline gold">КОЛЛЕКЦИЯ URKER BAULU MEKTEBI</p></div><button onClick={() => navigate('/games')}>Все игры →</button></div><div className="games-grid">{games.map((game) => <GameCard key={game.name} game={game} navigate={navigate} />)}</div></section>
@@ -259,7 +295,7 @@ function Memo({ navigate }) {
   }, []);
 
   const whatsappLink =
-      'https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
+      'https://wa.me/+77758431822?text=Здравствуйте!%20Хочу%20заказать%20игру%20URKER%20MEMO.';
 
   return (
       <>
@@ -325,7 +361,7 @@ function Memo({ navigate }) {
 
                 {/* Цена + WhatsApp */}
                 <div className="product-purchase">
-                  <div className="product-price">4 500 ₸</div>
+                  <div className="product-price">3 800 ₸</div>
                   <a
                       className="whatsapp-product-button"
                       href={whatsappLink}
@@ -635,13 +671,90 @@ function Memo({ navigate }) {
   );
 }
 
+const urkerGoTopics = [
+  ['👤', 'Қазақстанның ұлы тұлғалары', 'Великие личности Казахстана'],
+  ['📜', 'Қазақстан тарихындағы маңызды оқиғалар', 'Важные исторические события'],
+  ['🌲', 'Ұлттық саябақтар мен қорықтар', 'Национальные парки и заповедники'],
+  ['🏛️', 'Тарихи-мәдени ескерткіштер', 'Историко-культурные памятники']
+];
+
+function UrkerSingleProduct({ navigate, booklet = false }) {
+  const [modal, setModal] = useState(false);
+  const name = booklet ? '«Үркермен елтану»' : 'URKER GO!';
+  const image = booklet ? '/images/urkermen-eltanu.jpg' : '/images/urker-go.jpg';
+  const price = booklet ? '3 000 ₸' : '15 000 ₸';
+  const whatsappLink = `https://wa.me/77758431822?text=${encodeURIComponent(`Здравствуйте! Хочу заказать ${name}.`)}`;
+
+  useEffect(() => {
+    document.title = `${name} | Urker Baulu Mektebi`;
+  }, [name]);
+
+  return <>
+    <Header navigate={navigate} />
+    <main className="go-page urker-single-page">
+      <section className="product-hero go-hero">
+        <div className="product-layout">
+          <div className="product-photo go-main-photo">
+            <img src={image} alt={name} onClick={() => setModal(true)} />
+            <button type="button" onClick={() => setModal(true)}>
+              <span className="lang-kk">⌕ Суретті үлкейту</span>
+              <span className="lang-ru">⌕ Увеличить изображение</span>
+            </button>
+          </div>
+          <div className="product-info">
+            <p className="overline gold">
+              {booklet ? 'ТАНЫМДЫҚ КІТАПША · ТЕК ҚАЗАҚ ТІЛІНДЕ' : <>
+                <span className="lang-kk">ТАНЫМДЫҚ ҮСТЕЛ ОЙЫНЫ</span>
+                <span className="lang-ru">ПОЗНАВАТЕЛЬНАЯ НАСТОЛЬНАЯ ИГРА</span>
+              </>}
+            </p>
+            <h1>{name}</h1>
+            {booklet ? <>
+              <p className="description">«Үркермен елтану» — Қазақстанды қызықты комикс форматында таныстыратын танымдық кітапша. Кітапшада еліміздің 17 облысы мен республикалық маңызы бар 3 қаласы қамтылған. Әр өңірдің ерекшеліктерімен, тарихымен және мәдениетімен қызықты иллюстрациялар арқылы танысуға мүмкіндік береді. Балалардың туған жерге деген қызығушылығын арттырып, дүниетанымын кеңейтеді.</p>
+              <p className="urker-language-note">Қазақ тілінде</p>
+            </> : <>
+              <p className="description bilingual-copy">
+                <span>URKER GO! — балаларға арналған танымдық үстел ойыны. Ойын арқылы балалар Қазақстанның тарихы мен мәдениеті туралы білімдерін кеңейтіп, ойлау қабілеті мен таным көкжиегін дамытады.</span>
+                <span>URKER GO! — познавательная настольная игра, которая помогает детям расширить знания об истории и культуре Казахстана, развить мышление и эрудицию.</span>
+              </p>
+              <div className="urker-topics">
+                <h3><span className="lang-kk">Ойын 4 негізгі тақырыпты қамтиды:</span><span className="lang-ru">В игре представлены 4 основные темы:</span></h3>
+                <ul>{urkerGoTopics.map(([symbol, kk, ru]) => <li key={kk}>
+                  <span className="urker-topic-icon" aria-hidden="true">{symbol}</span>
+                  <span><span className="lang-kk">{kk}</span><span className="lang-ru">{ru}</span></span>
+                </li>)}</ul>
+              </div>
+              <p className="description bilingual-copy">
+                <span>Ойын балаларға туған елін жақынырақ танып-білуге, достарымен және отбасымен уақытты қызықты әрі пайдалы өткізуге мүмкіндік береді.</span>
+                <span>Игра помогает детям узнавать больше о родной стране, интересно и с пользой проводить время с друзьями и семьёй.</span>
+              </p>
+            </>}
+            <div className="product-purchase">
+              <div className="product-price">{price}</div>
+              <a className="whatsapp-product-button" href={whatsappLink} target="_blank" rel="noreferrer">
+                <span>WhatsApp</span><span>Заказать →</span>
+              </a>
+            </div>
+            <EmailButton />
+          </div>
+        </div>
+      </section>
+    </main>
+    {modal && <div className="modal" onClick={() => setModal(false)}>
+      <button type="button" aria-label="Закрыть">×</button>
+      <img src={image} alt={name} />
+    </div>}
+    <Footer navigate={navigate} />
+  </>;
+}
+
 function UrkerGo({ navigate }) {
   const goPrice = '18 000 ₸';
-  const goWhatsappNumber = '87017626501';
+  const goWhatsappNumber = '+77758431822';
   
 
   const goWhatsappMessage = encodeURIComponent(
-      'Здравствуйте! Хочу заказать игру «URKER GO».'
+      'Здравствуйте! Хочу заказать набор URKER GO! PLUS.'
   );
 
   const goWhatsappLink = `https://wa.me/${goWhatsappNumber}?text=${goWhatsappMessage}`;
@@ -652,7 +765,7 @@ function UrkerGo({ navigate }) {
   const currentGoMapSlide = goMapSlides[goMapSlide];
 
   useEffect(() => {
-    document.title = '«URKER GO» мен Үркермен елтану | Urker Baulu Mektebi';
+    document.title = 'URKER GO! PLUS | Urker Baulu Mektebi';
   }, []);
 
   const openImage = (src) => setModal(src);
@@ -728,6 +841,11 @@ function UrkerGo({ navigate }) {
                   </p>
                 </div>
 
+                <div className="urker-plus-includes">
+                  <strong>🎁 <span className="lang-kk">Жинақ / </span><span className="lang-ru">Набор</span></strong>
+                  <p className="lang-kk">«URKER GO! PLUS» ойын жиынтығына қосымша «Үркермен елтану» танымдық кітапшасы бірге жүреді.</p>
+                  <p className="lang-ru">В комплект URKER GO! PLUS дополнительно входит познавательная книжка «Үркермен елтану».</p>
+                </div>
                 {/* Цена + WhatsApp сверху, как на SafeInternet */}
                 <div className="product-purchase">
                   <div className="product-price">{goPrice}</div>
@@ -965,7 +1083,7 @@ function UrkerGo({ navigate }) {
             </span>
             </h2>
             <a
-                href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20Urker%20Go"
+                href="https://wa.me/+77758431822?text=Здравствуйте!%20Хочу%20заказать%20Urker%20Go"
                 target="_blank"
                 rel="noreferrer"
             >
@@ -1013,7 +1131,7 @@ function UrkerWorkbook({ navigate }) {
 
           <a
               className="whatsapp-product-button"
-              href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
+              href="https://wa.me/+77758431822?text=Здравствуйте!%20Хочу%20заказать%20«Үркер%20дәптері»."
               target="_blank"
               rel="noreferrer"
           >
@@ -1088,7 +1206,7 @@ function SafeInternet({ navigate }) {
                   <div className="product-price">2 500 ₸</div>
                   <a
                       className="whatsapp-product-button"
-                      href="https://wa.me/87017626501?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
+                      href="https://wa.me/+77758431822?text=Здравствуйте!%20Хочу%20заказать%20игру%20«Қауіпсіз%20ғаламтор»."
                       target="_blank"
                       rel="noreferrer"
                   >
@@ -1231,7 +1349,7 @@ function SafeInternet({ navigate }) {
               <span className="lang-ru">Подготовьте ребёнка к цифровому миру</span>
             </h2>
             <a
-                href="https://wa.me/77785608275?text=Здравствуйте!%20Хочу%20заказать%20игру%20Қауіпсіз%20ғаламтор"
+                href="https://wa.me/+77758431822?text=Здравствуйте!%20Хочу%20заказать%20игру%20Қауіпсіз%20ғаламтор"
                 target="_blank"
                 rel="noreferrer"
             >
@@ -1263,7 +1381,9 @@ export default function Main() {
   }, [path]);
   const navigate = (to) => { window.history.pushState({}, '', to); setPath(to); window.scrollTo(0, 0); };
   if (path === '/games/urker-memo') return <Memo navigate={navigate} />;
-  if (path === '/games/urker-go') return <UrkerGo navigate={navigate} />;
+  if (path === '/games/urker-go-plus') return <UrkerGo navigate={navigate} />;
+  if (path === '/games/urker-go') return <UrkerSingleProduct navigate={navigate} />;
+  if (path === '/games/urkermen-eltanu') return <UrkerSingleProduct navigate={navigate} booklet />;
   if (path === '/games/urker-workbook') return <UrkerWorkbook navigate={navigate} />;
   if (path === '/games/safe-internet') return <SafeInternet navigate={navigate} />;
   if (path === '/games') return <Games navigate={navigate} />;
